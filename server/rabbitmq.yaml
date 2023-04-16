@@ -1,0 +1,13 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmq-service
+spec:
+  replicas: 1
+  rabbitmq:
+    additionalConfig: |            
+      default_user= guest 
+      default_pass = guest
+      default_user_tags.administrator = true
+  service:
+    type: LoadBalancer

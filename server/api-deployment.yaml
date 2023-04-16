@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepfakedetectionframeworkapi-deployment  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deepfakedetectionframeworkapi
+  template:
+    metadata:
+      labels:
+        app: deepfakedetectionframeworkapi
+    spec:
+      containers:
+        - name: deepfakedetectionframeworkapi
+          image: localhost:5000/deepfakedetectionframeworkapi
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+          volumeMounts:
+          - name: processingdata
+            mountPath: /mnt/processingdata
+      volumes:
+      - name: processingdata
+        persistentVolumeClaim:
+          claimName: processing-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepfakedetectionframeworkapi-service
+spec:
+  selector:
+    app: deepfakedetectionframeworkapi
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: LoadBalancer
