@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deepfakedetectionframeworkapi-deployment  
+  name: dfdf-api-deployment  
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: deepfakedetectionframeworkapi
+      app: dfdf-api
   template:
     metadata:
       labels:
-        app: deepfakedetectionframeworkapi
+        app: dfdf-api
     spec:
       containers:
-        - name: deepfakedetectionframeworkapi
-          image: localhost:5000/deepfakedetectionframeworkapi
+        - name: dfdf-api
+          image: localhost:5000/dfdf-api
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
@@ -35,10 +35,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: deepfakedetectionframeworkapi-service
+  name: dfdf-api-service
 spec:
   selector:
-    app: deepfakedetectionframeworkapi
+    app: dfdf-api
   ports:
     - port: 80
       targetPort: 80

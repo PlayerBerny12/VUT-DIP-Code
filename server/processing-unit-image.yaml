@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dfdf-video-controller-deployment  
+  name: dfdf-image-controller-deployment  
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dfdf-video-controller
+      app: dfdf-image-controller
   template:
     metadata:
       labels:
-        app: dfdf-video-controller
+        app: dfdf-image-controller
     spec:
       containers:
-        - name: dfdf-video-controller
+        - name: dfdf-image-controller
           image: localhost:5000/dfdf-controller
           imagePullPolicy: IfNotPresent
           env:
           - name: RabbitMQ
             value: "rabbitmq-service"
           - name: RabbitMQQueue
-            value: "queue_video"
+            value: "queue_image"
           volumeMounts:
           - name: processingdata
             mountPath: /mnt/processingdata

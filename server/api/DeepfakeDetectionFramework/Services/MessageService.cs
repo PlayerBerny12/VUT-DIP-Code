@@ -39,7 +39,7 @@ public class MessageService : IMessageService
         }
         else if (request.Type == ProcessingType.Image)
         {
-            string queue = "queue_iamge";
+            string queue = "queue_image";
             using IModel channel = CreateChannel(connection, queue);
             channel.BasicPublish("", queue, null, message);
         }

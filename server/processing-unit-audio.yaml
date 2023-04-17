@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dfdf-audio-controller-deployment  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dfdf-audio-controller
+  template:
+    metadata:
+      labels:
+        app: dfdf-audio-controller
+    spec:
+      containers:
+        - name: dfdf-audio-controller
+          image: localhost:5000/dfdf-controller
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: RabbitMQ
+            value: "rabbitmq-service"
+          - name: RabbitMQQueue
+            value: "queue_audio"
+          - name: ProcessingUnitsPorts
+            value: "50500:50501"
+        - name: dfdf-detection-audio-1
+          image: localhost:5000/dfdf-detection-audio-1
+          imagePullPolicy: IfNotPresent     
+          volumeMounts:
+          - name: processingdata
+            mountPath: /mnt/processingdata
+            readOnly: true
+        - name: dfdf-detection-audio-2
+          image: localhost:5000/dfdf-detection-audio-2
+          imagePullPolicy: IfNotPresent     
+          volumeMounts:
+          - name: processingdata
+            mountPath: /mnt/processingdata
+            readOnly: true
+      volumes:
+      - name: processingdata
+        persistentVolumeClaim:
+          claimName: processing-data
