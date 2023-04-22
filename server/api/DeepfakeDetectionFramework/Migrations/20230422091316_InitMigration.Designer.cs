@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeepfakeDetectionFramework.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230416223950_InitMigration")]
+    [Migration("20230422091316_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -24,30 +24,6 @@ namespace DeepfakeDetectionFramework.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DeepfakeDetectionFramework.Data.Models.Method", b =>
-                {
-                    b.Property<long?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("ID"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Methods");
-                });
 
             modelBuilder.Entity("DeepfakeDetectionFramework.Data.Models.Request", b =>
                 {
@@ -86,9 +62,6 @@ namespace DeepfakeDetectionFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("ID"));
 
-                    b.Property<long>("MethodID")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("RequestID")
                         .HasColumnType("bigint");
 
@@ -97,8 +70,6 @@ namespace DeepfakeDetectionFramework.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MethodID");
-
                     b.HasIndex("RequestID");
 
                     b.ToTable("Responses");
@@ -106,19 +77,11 @@ namespace DeepfakeDetectionFramework.Migrations
 
             modelBuilder.Entity("DeepfakeDetectionFramework.Data.Models.Response", b =>
                 {
-                    b.HasOne("DeepfakeDetectionFramework.Data.Models.Method", "Method")
-                        .WithMany()
-                        .HasForeignKey("MethodID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DeepfakeDetectionFramework.Data.Models.Request", "Request")
                         .WithMany()
                         .HasForeignKey("RequestID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Method");
 
                     b.Navigation("Request");
                 });
