@@ -14,9 +14,4 @@ public class Response
     public Request? Request { get; set; }
 
     public required double Value { get; set; }
-
-    public required long MethodID { get; set; }
-
-    [ForeignKey(nameof(MethodID))]
-    public Method? Method { get; set; }
 }

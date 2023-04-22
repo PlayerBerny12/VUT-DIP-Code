@@ -1,8 +1,11 @@
 ﻿using DeepfakeDetectionFramework.Data.ViewModels;
+using RabbitMQ.Client;
 
 namespace DeepfakeDetectionFramework.Interfaces;
 
 public interface IMessageService
 {
-    public void SendRequestToProcessingUint(RequestVM request);
+    public ConnectionFactory GetConnectionFactory();
+
+    public IModel CreateChannel(IConnection connection, string queue);    
 }

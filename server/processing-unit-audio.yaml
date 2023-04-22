@@ -21,23 +21,54 @@ spec:
             value: "rabbitmq-service"
           - name: RabbitMQQueue
             value: "queue_audio"
+          - name: RabbitMQOutputQueue
+            value: "queue_output"
           - name: ProcessingUnitsPorts
-            value: "50500:50501"
+            value: "50500"
         - name: dfdf-detection-audio-1
-          image: localhost:5000/dfdf-detection-audio-1
-          imagePullPolicy: IfNotPresent     
+          image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-1:master
+          imagePullPolicy: IfNotPresent
           volumeMounts:
           - name: processingdata
             mountPath: /mnt/processingdata
             readOnly: true
-        - name: dfdf-detection-audio-2
-          image: localhost:5000/dfdf-detection-audio-2
-          imagePullPolicy: IfNotPresent     
-          volumeMounts:
-          - name: processingdata
-            mountPath: /mnt/processingdata
-            readOnly: true
+        # - name: dfdf-detection-audio-2
+        #   image: localhost:5000/dfdf-detection-audio-2
+        #   imagePullPolicy: IfNotPresent
+        #   volumeMounts:
+        #   - name: processingdata
+        #     mountPath: /mnt/processingdata
+        #     readOnly: true
+        # - name: dfdf-detection-audio-3
+        #   image: localhost:5000/dfdf-detection-audio-3
+        #   imagePullPolicy: IfNotPresent
+        #   volumeMounts:
+        #   - name: processingdata
+        #     mountPath: /mnt/processingdata
+        #     readOnly: true
+        # - name: dfdf-detection-audio-4
+        #   image: localhost:5000/dfdf-detection-audio-4
+        #   imagePullPolicy: IfNotPresent
+        #   volumeMounts:
+        #   - name: processingdata
+        #     mountPath: /mnt/processingdata
+        #     readOnly: true
+        # - name: dfdf-detection-audio-5
+        #   image: localhost:5000/dfdf-detection-audio-5
+        #   imagePullPolicy: IfNotPresent
+        #   volumeMounts:
+        #   - name: processingdata
+        #     mountPath: /mnt/processingdata
+        #     readOnly: true
+        # - name: dfdf-detection-audio-6
+        #   image: localhost:5000/dfdf-detection-audio-6
+        #   imagePullPolicy: IfNotPresent
+        #   volumeMounts:
+        #   - name: processingdata
+        #     mountPath: /mnt/processingdata
+        #     readOnly: true
       volumes:
       - name: processingdata
         persistentVolumeClaim:
           claimName: processing-data
+          readOnly: true

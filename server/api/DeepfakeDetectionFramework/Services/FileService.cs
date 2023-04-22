@@ -37,7 +37,7 @@ public class FileService : IFileService
 
         string savedFilename = $"{Guid.NewGuid()}{Path.GetExtension(filename)}";
         string filePath = Path.Combine(_configuration["ProcessingDataPath"]!, savedFilename);
-        
+
         using var stream = new FileStream(filePath, FileMode.Create);
         await result.Content.CopyToAsync(stream);
 
@@ -58,7 +58,7 @@ public class FileService : IFileService
         string filePath = Path.Combine(_configuration["ProcessingDataPath"]!, savedFilename);
 
         using var stream = new FileStream(filePath, FileMode.Create);
-        await file.CopyToAsync(stream);        
+        await file.CopyToAsync(stream);
 
         return (savedFilename, CalculateFileChecksum(stream), fileType.Value);
     }
@@ -66,25 +66,25 @@ public class FileService : IFileService
     private string CalculateFileChecksum(FileStream fileStream)
     {
         using SHA256 sha256 = SHA256.Create();
-        return Convert.ToBase64String(sha256.ComputeHash(fileStream));        
+        return Convert.ToBase64String(sha256.ComputeHash(fileStream));
     }
 
     private ProcessingType? GetFileType(string filenameWithExtension, string contentType)
     {
-        Dictionary<string, string> supportedFileTypes = new();
+        Dictionary<string, List<string>> supportedFileTypes = new();
         _configuration.GetRequiredSection("SupportedFileTypes").Bind(supportedFileTypes);
-        
-        if (!supportedFileTypes.TryGetValue(Path.GetExtension(filenameWithExtension), out string? expectedContentType))
+
+        if (!supportedFileTypes.TryGetValue(Path.GetExtension(filenameWithExtension), out List<string>? expectedContentType))
         {
             return null;
         }
 
-        if(expectedContentType != contentType)
+        if (!expectedContentType.Contains(contentType))
         {
             return null;
         }
 
-        return expectedContentType.Split('/')[0] switch
+        return contentType.Split('/')[0] switch
         {
             "video" => ProcessingType.Video,
             "image" => ProcessingType.Image,

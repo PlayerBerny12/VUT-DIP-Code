@@ -11,21 +11,6 @@ namespace DeepfakeDetectionFramework.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Methods",
-                columns: table => new
-                {
-                    ID = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Methods", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Requests",
                 columns: table => new
                 {
@@ -48,18 +33,11 @@ namespace DeepfakeDetectionFramework.Migrations
                     ID = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RequestID = table.Column<long>(type: "bigint", nullable: false),
-                    Value = table.Column<double>(type: "float", nullable: false),
-                    MethodID = table.Column<long>(type: "bigint", nullable: false)
+                    Value = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Responses", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Responses_Methods_MethodID",
-                        column: x => x.MethodID,
-                        principalTable: "Methods",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Responses_Requests_RequestID",
                         column: x => x.RequestID,
@@ -67,11 +45,6 @@ namespace DeepfakeDetectionFramework.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Responses_MethodID",
-                table: "Responses",
-                column: "MethodID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Responses_RequestID",
@@ -84,9 +57,6 @@ namespace DeepfakeDetectionFramework.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Responses");
-
-            migrationBuilder.DropTable(
-                name: "Methods");
 
             migrationBuilder.DropTable(
                 name: "Requests");
