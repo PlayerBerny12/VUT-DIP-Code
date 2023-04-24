@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dfdf-video-controller
-          image: localhost:5000/dfdf-controller
+          image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
           imagePullPolicy: IfNotPresent
           env:
           - name: RabbitMQ

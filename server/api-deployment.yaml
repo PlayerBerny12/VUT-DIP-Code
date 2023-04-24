@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dfdf-api
-          image: localhost:5000/dfdf-api
+          image: ghcr.io/playerberny12/vut-dip-code/dfdf-api:main
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
