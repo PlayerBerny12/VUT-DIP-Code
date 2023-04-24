@@ -6,5 +6,7 @@ namespace DeepfakeDetectionFramework.Interfaces;
 public interface IRequestService
 {
     Task<RequestVM> CreateRequest(string filename, string checksum, ProcessingType processingType);
-    public void SendRequestToProcessingUint(RequestVM request);
+    void SendRequestToProcessingUint(RequestVM request);
+
+    Task<ResponsesVM> GetRequestResonses(long requestID);
 }

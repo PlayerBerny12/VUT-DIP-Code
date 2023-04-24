@@ -1,8 +1,5 @@
 ﻿using DeepfakeDetectionFramework.Data;
 using DeepfakeDetectionFramework.Interfaces;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace DeepfakeDetectionFramework.Services;

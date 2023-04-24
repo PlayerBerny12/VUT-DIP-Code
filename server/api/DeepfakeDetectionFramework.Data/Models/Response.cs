@@ -13,5 +13,7 @@ public class Response
     [ForeignKey(nameof(RequestID))]
     public Request? Request { get; set; }
 
+    public required long MethodID { get; set; }
+
     public required double Value { get; set; }
 }

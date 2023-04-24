@@ -5,7 +5,7 @@ namespace DeepfakeDetectionFramework.Interfaces;
 
 public interface IMessageService
 {
-    public ConnectionFactory GetConnectionFactory();
+    ConnectionFactory GetConnectionFactory();
 
-    public IModel CreateChannel(IConnection connection, string queue);    
+    IModel CreateChannel(IConnection connection, string queue);    
 }

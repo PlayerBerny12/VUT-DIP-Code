@@ -41,12 +41,6 @@ def on_message_received(channel: Any, method: Any, _, body: bytes):
     print(f"Received body: {params_lowecase}")    
 
     responses = asyncio.run(call_all_processing_units(PROCESSING_UNITS_URLS, params_lowecase))
-    # import requests
-    # responses = []
-    # for url in PROCESSING_UNITS_URLS:
-    #     respons = requests.get(url, params=params_lowecase)
-    #     responses.append(respons.json())
-
     print(f"Received responses: {responses}")
 
     queue_output = os.environ["RabbitMQOutputQueue"]    

@@ -41,9 +41,8 @@ public class OutputConsumerService : BackgroundService
         {
             byte[] body = args.Body.ToArray();
             string message = Encoding.UTF8.GetString(body).Replace('\'', '\"');
-            Console.WriteLine(message);
+
             List<ResponseBackendVM>? responsesVM = JsonSerializer.Deserialize<List<ResponseBackendVM>>(message);
-            Console.WriteLine(responsesVM != null ? responsesVM.Count : "empty");
 
             if (responsesVM != null)
             {
@@ -52,7 +51,6 @@ public class OutputConsumerService : BackgroundService
 
                 foreach (ResponseBackendVM responseVM in responsesVM)
                 {
-                    Console.WriteLine($"{responseVM.Name}: {responseVM.Value}");
                     Response response = _mapperConfig.ToModel(responseVM);
                     await databaseContext.AddAsync(response);
                 }

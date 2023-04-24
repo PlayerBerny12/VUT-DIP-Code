@@ -8,9 +8,8 @@ namespace DeepfakeDetectionFramework.Data;
 public partial class MapperConfig
 {
     public partial RequestVM ToViewModel(Request request);
-    public partial ResponseVM ToViewModel(Response response);
 
     public partial Request ToModel(RequestVM requestVM);
     public partial Response ToModel(ResponseBackendVM responseVM);
-    public partial Feedback ToModel(FeedbackVM feedbackVM);
+    public partial Feedback ToModel(FeedbackVM feedbackVM);            
 }

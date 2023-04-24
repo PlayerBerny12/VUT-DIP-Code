@@ -35,6 +35,7 @@ try
     builder.Services.AddHostedService<OutputConsumerService>();
 
     builder.Services.AddSingleton<MapperConfig>();
+    builder.Services.AddSingleton<IFeedbackService, FeedbackService>();
     builder.Services.AddSingleton<IFileService, FileService>();
     builder.Services.AddSingleton<IMessageService, MessageService>();
     builder.Services.AddScoped<IRequestService, RequestService>();
