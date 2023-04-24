@@ -1,9 +1,35 @@
-{    
+{
     "name": "Browser Extension",
     "version": "1.0",
     "description": "Description",
     "manifest_version": 3,
-    "action": {        
+    "permissions": [
+        "activeTab",
+        "webNavigation",
+        "scripting"
+    ],
+    "action": {
         "default_popup": "index.html"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "runtime.js",
+                "polyfills.js",
+                "main.js"
+            ],
+            "css": [
+                "styles.css"
+            ]
+        }
+    ],
+    "file_browser_handlers": [
+        {
+            "id": "upload",
+            "default_title": "File upload"
+        }
+    ]
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-link-dialog',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./link-dialog.component.scss']
 })
 export class LinkDialogComponent {
+  linkFormControl = new FormControl<string>('', [Validators.required]);
 
+  constructor(public dialogRef: MatDialogRef<LinkDialogComponent>) { }
 }
