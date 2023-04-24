@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Link</h1>
+<div mat-dialog-content>
+  Enter link to file you would like to inspect:
+  <mat-form-field class="link-input">
+    <mat-label>Link</mat-label>
+    <input type="text" matInput [formControl]="linkFormControl" placeholder="Ex. www.example.com/file.wav">    
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close cdkFocusInitial>Submit</button>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

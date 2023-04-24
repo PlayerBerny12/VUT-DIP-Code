@@ -1,0 +1,24 @@
+<section class="section">
+    <button mat-stroked-button class="button">
+        <div class="icon-container">
+            <mat-icon class="icon" aria-hidden="false" aria-label="Select element icon"
+                fontIcon="highlight_alt"></mat-icon>
+        </div>
+        <span>Element selection</span>        
+    </button>
+    <input #fileInput hidden="true" type="file" (change)="fileInputChange($event)"/>
+    <button mat-stroked-button class="button" (click)="fileInput.click()">
+        <div class="icon-container">
+            <mat-icon class="icon" aria-hidden="false" aria-label="File upload icon"
+                fontIcon="file_upload"></mat-icon>
+        </div>
+        <span>File upload</span>
+    </button>
+    <button mat-stroked-button class="button" (click)="openLinkDialog()">
+        <div class="icon-container">
+            <mat-icon class="icon" aria-hidden="false" aria-label="Link icon"
+                fontIcon="link"></mat-icon>
+        </div>
+        <span>Link</span>
+    </button>
+</section>
