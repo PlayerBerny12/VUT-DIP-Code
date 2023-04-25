@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Connections;
 using System.Text.Json;
 using System.Text;
 using DeepfakeDetectionFramework.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeepfakeDetectionFramework.Services;
 
@@ -14,6 +15,7 @@ public class OutputConsumerService : BackgroundService
 {
     private readonly MapperConfig _mapperConfig;
     private readonly IServiceScopeFactory _scopeFactory;
+    private readonly IFileService _fileService;
     private readonly IMessageService _messageService;
 
     private readonly IConnection _connection;
@@ -22,10 +24,11 @@ public class OutputConsumerService : BackgroundService
     const string QUEUE_OUTPUT = "queue_output";
 
     public OutputConsumerService(MapperConfig mapperConfig, IServiceScopeFactory scopeFactory,
-        IMessageService messageService)
+        IFileService fileService, IMessageService messageService)
     {
         _mapperConfig = mapperConfig;
         _scopeFactory = scopeFactory;
+        _fileService = fileService;
         _messageService = messageService;
 
         _connection = _messageService.GetConnectionFactory()
@@ -56,6 +59,10 @@ public class OutputConsumerService : BackgroundService
                 }
 
                 await databaseContext.SaveChangesAsync();
+
+                Request request = await databaseContext.Requests.Where(x => x.ID == responsesVM.First().RequestID)
+                    .FirstAsync();
+                _fileService.RemoveFile(request.Filename);
             }
 
             _channel.BasicAck(args.DeliveryTag, false);

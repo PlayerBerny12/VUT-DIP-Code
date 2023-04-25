@@ -25,7 +25,7 @@ public class RequestController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(string))]
     public async Task<IActionResult> GetResults(long requestID)
     {
-        ResponsesVM responsesVM = await _requestService.GetRequestResonses(requestID);
+        ResponsesVM? responsesVM = await _requestService.GetRequestResonses(requestID);
         return Ok(responsesVM);
     }
 }

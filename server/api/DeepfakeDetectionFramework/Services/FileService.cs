@@ -60,6 +60,12 @@ public class FileService : IFileService
         return (savedFilename, CalculateFileChecksum(stream), fileType.Value);
     }
 
+    public void RemoveFile(string filename)
+    {
+        string filePath = Path.Combine(_configuration["ProcessingDataPath"]!, filename);
+        File.Delete(filePath);
+    }
+
     private string CalculateFileChecksum(FileStream fileStream)
     {
         using SHA256 sha256 = SHA256.Create();

@@ -8,5 +8,5 @@ public interface IRequestService
     Task<RequestVM> CreateRequest(string filename, string checksum, ProcessingType processingType);
     void SendRequestToProcessingUint(RequestVM request);
 
-    Task<ResponsesVM> GetRequestResonses(long requestID);
+    Task<ResponsesVM?> GetRequestResonses(long requestID);
 }

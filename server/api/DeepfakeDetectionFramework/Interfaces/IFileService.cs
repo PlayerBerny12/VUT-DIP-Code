@@ -7,4 +7,5 @@ public interface IFileService
 {
     Task<(string, string, ProcessingType)> DownloadFile(string uri);
     Task<(string, string, ProcessingType)> SaveUploadedFile(IFormFile file);
+    public void RemoveFile(string filename);    
 }

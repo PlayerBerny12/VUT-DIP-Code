@@ -72,11 +72,15 @@ public class RequestService : IRequestService
         }
     }
 
-    public async Task<ResponsesVM> GetRequestResonses(long requestID)
+    public async Task<ResponsesVM?> GetRequestResonses(long requestID)
     {
         List<Response> responses = await _databaseContext.Responses.Where(x => x.RequestID == requestID)
           .Include(x => x.Request)
           .ToListAsync();
+        
+        if(responses.Count == 0) {
+            return null;
+        }
 
         List<DetectionMethodVM> detectionMethods = new();
         _configuration.GetRequiredSection("DetectionMethods").Bind(detectionMethods);

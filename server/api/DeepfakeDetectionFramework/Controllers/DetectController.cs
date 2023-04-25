@@ -34,7 +34,7 @@ public class DetectController : ControllerBase
         (string savedFilename, string checksum, ProcessingType processingType) = await _fileService.SaveUploadedFile(file);
         RequestVM request = await _requestService.CreateRequest(savedFilename, checksum, processingType);
         
-        if (request.ID != null)
+        if (request.Status == RequestStatus.Processing)
         {
             _requestService.SendRequestToProcessingUint(request);
         }
@@ -51,7 +51,7 @@ public class DetectController : ControllerBase
         (string savedFilename, string checksum, ProcessingType processingType) = await _fileService.DownloadFile(link);
         RequestVM request = await _requestService.CreateRequest(savedFilename, checksum, processingType);
 
-        if(request.ID != null)
+        if (request.Status == RequestStatus.Processing)
         {
             _requestService.SendRequestToProcessingUint(request);
         }
