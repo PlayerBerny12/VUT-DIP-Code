@@ -21,6 +21,7 @@ try
     builder.Host.UseSerilog();
 
     // Add services to the container.
+    builder.Services.AddCors();
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
@@ -47,6 +48,13 @@ try
     using IServiceScope scope = app.Services.CreateScope();
     DatabaseContext dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
     dbContext.Database.Migrate();
+
+    // Allow CORS
+    app.UseCors(builder => 
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+    );
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
