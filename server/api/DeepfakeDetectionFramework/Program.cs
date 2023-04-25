@@ -3,6 +3,7 @@ using DeepfakeDetectionFramework.Data;
 using DeepfakeDetectionFramework.Interfaces;
 using DeepfakeDetectionFramework.Services;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
@@ -40,7 +41,10 @@ try
     builder.Services.AddSingleton<IFileService, FileService>();
     builder.Services.AddSingleton<IMessageService, MessageService>();
     builder.Services.AddScoped<IRequestService, RequestService>();
-
+    builder.Services.Configure<ApiBehaviorOptions>(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    });
     // Build app
     WebApplication app = builder.Build();
 
@@ -51,7 +55,7 @@ try
 
     // Allow CORS
     app.UseCors(builder => 
-        builder.AllowAnyOrigin()
+        builder.AllowAnyOrigin()        
         .AllowAnyMethod()
         .AllowAnyHeader()
     );

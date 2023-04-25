@@ -11,4 +11,8 @@ export class LinkDialogComponent {
   linkFormControl = new FormControl<string>('', [Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<LinkDialogComponent>) { }
+
+  closeClick(): void {
+    this.dialogRef.close();
+  }
 }

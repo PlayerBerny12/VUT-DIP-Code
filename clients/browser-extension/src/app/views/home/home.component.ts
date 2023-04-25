@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LinkDialogComponent } from 'src/app/components/link-dialog/link-dialog.component';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-home',
@@ -10,44 +11,28 @@ import { LinkDialogComponent } from 'src/app/components/link-dialog/link-dialog.
 })
 export class HomeComponent {
   constructor(
+    private router: Router,
     private dialog: MatDialog,
-    private http: HttpClient
+    private requestService: RequestService
   ) { }
 
-  file = null;
-
   fileInputChange(fileInputEvent: any) {
-    this.detectFile(fileInputEvent.target.files[0]);
+    this.requestService.detectFile(fileInputEvent.target.files[0])
+      .subscribe(() => this.redirectToResults());
   }
 
   openLinkDialog(): void {
     const dialogRef = this.dialog.open(LinkDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.detectFile(result);
+      if (result) {
+        this.requestService.detectLink(result)
+          .subscribe(() => this.redirectToResults());
+      }
     });
   }
 
-  private detectFile(uploadFile: any) {
-    let formData: FormData = new FormData();
-    formData.append('file', uploadFile);
-
-    this.http.post<any>('http://localhost:XXXX/detect', formData).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
-  }
-
-  private detectLink(link: string) {
-    let formData: FormData = new FormData();
-    formData.append('link', link);
-
-    this.http.post<any>('http://localhost:XXXX/detect', formData).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+  private redirectToResults() {
+    this.router.navigate(["results"]);
   }
 }

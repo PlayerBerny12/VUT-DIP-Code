@@ -22,6 +22,7 @@ public class DetectController : ControllerBase
 
     [HttpPost("file")]
     [ExceptionFilter(Message = "Failed to start detecting.")]
+    [RequestSizeLimit(long.MaxValue)]
     [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(int))]
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(string))]
     public async Task<IActionResult> DetectFile(IFormFile file)
@@ -48,6 +49,7 @@ public class DetectController : ControllerBase
     [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(string))]
     public async Task<IActionResult> DetectLink(string link)
     {
+        link = WebUtility.UrlDecode(link);
         (string savedFilename, string checksum, ProcessingType processingType) = await _fileService.DownloadFile(link);
         RequestVM request = await _requestService.CreateRequest(savedFilename, checksum, processingType);
 

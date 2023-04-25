@@ -3,10 +3,10 @@
   Enter link to file you would like to inspect:
   <mat-form-field class="link-input">
     <mat-label>Link</mat-label>
-    <input type="text" matInput [formControl]="linkFormControl" placeholder="Ex. www.example.com/file.wav">    
+    <input type="text" matInput [formControl]="linkFormControl" placeholder="Ex. www.example.com/file.wav">
   </mat-form-field>
 </div>
 <div mat-dialog-actions class="actions">
-  <button mat-button mat-dialog-close cdkFocusInitial>Submit</button>
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button [mat-dialog-close]="linkFormControl.value" cdkFocusInitial>Submit</button>
+  <button mat-button (click)="closeClick()">Close</button>
 </div>

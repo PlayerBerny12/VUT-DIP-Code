@@ -1,8 +1,15 @@
 <header class="header">
   <div class="logo-container">
-    <img class="logo" src="/assets/logo.svg"/>
+    <img class="logo" src="/assets/logo.svg" />
   </div>
 </header>
 <main class="content">
   <router-outlet></router-outlet>
 </main>
+<footer>
+  <div class="feedback-container">
+    <button mat-button (click)="openFeedbackDialog()">
+      <mat-icon class="icon" aria-hidden="false" aria-label="Feedback icon" fontIcon="comment"></mat-icon>
+    </button>
+  </div>
+</footer>

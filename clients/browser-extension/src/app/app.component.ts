@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackService } from './services/feedback.service';
+import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'browser-extension';
+
+  constructor(
+    private dialog: MatDialog,
+    private feedbackService: FeedbackService,
+  ) { }
+
+  openFeedbackDialog(): void {
+    const dialogRef = this.dialog.open(FeedbackDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.feedbackService.sendFeedback(result)
+          .subscribe();
+      }
+    });
+  }
 }

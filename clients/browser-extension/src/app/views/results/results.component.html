@@ -1,1 +1,18 @@
-<p>results works!</p>
+<div *ngIf="(responses$ | async) as responses">
+    <div class="overall-score">
+        <span>{{responses.value}}</span>
+    </div>
+    <div class="detection-methods">
+        <mat-grid-list cols="2">
+            <mat-grid-tile *ngFor="let response of responses.responses">
+                <app-result-method [response]="response"></app-result-method>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>
+
+<ng-template>
+    <div>
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
