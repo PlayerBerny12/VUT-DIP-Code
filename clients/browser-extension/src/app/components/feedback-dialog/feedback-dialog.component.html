@@ -2,8 +2,9 @@
 <div mat-dialog-content>
   Enter your feedback here:
   <mat-form-field class="feedback-input">
-    <mat-label>Link</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+    <mat-label>Feedback</mat-label>
+    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+    [formControl]="feedbackFormControl" placeholder="Ex. It makes me feel..."></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions class="actions">

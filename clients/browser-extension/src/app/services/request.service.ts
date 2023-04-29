@@ -26,7 +26,7 @@ export class RequestService {
         "Content-Type": "multipart/form-data"
       })
     };
-    return this.http.post<number>('https://localhost:7278/api/detect/file', formData)
+    return this.http.post<number>('http://localhost/api/detect/file', formData)
       .pipe(
         tap(result => this.requestID = result),
         catchError(error => this.handleError(error))
@@ -37,7 +37,7 @@ export class RequestService {
     let params = new HttpParams()
       .append("link", encodeURIComponent(link));
 
-    return this.http.post<number>('https://localhost:7278/api/detect/link', null, { params: params })
+    return this.http.post<number>('http://localhost/api/detect/link', null, { params: params })
       .pipe(
         tap(result => this.requestID = result),
         catchError(error => this.handleError(error))
@@ -58,6 +58,7 @@ export class RequestService {
 
   private handleError(error: HttpErrorResponse) {
     this.snackBar.open("Start detection failed.", undefined, { duration: 3500 });
-    return throwError(() => error)
+    // return throwError(() => error)
+    return of(null)
   }
 }

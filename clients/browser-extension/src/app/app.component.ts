@@ -20,6 +20,7 @@ export class AppComponent {
     const dialogRef = this.dialog.open(FeedbackDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       if (result) {
         this.feedbackService.sendFeedback(result)
           .subscribe();

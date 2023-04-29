@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { DetectionMethodVM } from 'src/app/models/detection_method.model';
 import { ResponseVM } from 'src/app/models/response.model';
 import { DetectionMethodDialogComponent } from '../detection-method-dialog/detection-method-dialog.component';
@@ -11,7 +11,7 @@ import { DetectionMethodDialogComponent } from '../detection-method-dialog/detec
   styleUrls: ['./result-method.component.scss']
 })
 export class ResultMethodComponent {
-  responseSource = new Subject<ResponseVM>();
+  responseSource = new BehaviorSubject<ResponseVM | null>(null);
   response$ = this.responseSource.asObservable();
 
   @Input() set response(value: ResponseVM) {
@@ -26,7 +26,11 @@ export class ResultMethodComponent {
     });
   }
 
-  getWidth(value: number) {
-    return `width: ${value * 100}%`
+  getWidth(value: number | null) {
+    if (value) {
+      return `width: ${value * 100}%`
+    } else {
+      return "";
+    }
   }
 }

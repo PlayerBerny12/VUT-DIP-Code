@@ -1,18 +1,35 @@
-<div *ngIf="(responses$ | async) as responses">
-    <div class="overall-score">
-        <span>{{responses.value}}</span>
-    </div>
-    <div class="detection-methods">
-        <mat-grid-list cols="2">
+<ng-container *ngIf="(responses$ | async) as responses else loading">
+    <ng-container *ngIf="responses.value else no_results">
+
+        <div class="overall-score">
+            <div class="overall-score-headline">
+                <div>Overall score:</div>
+                <button mat-mini-fab (click)="openOverallScoreDialog()">
+                    <mat-icon class="icon" aria-hidden="false" aria-label="Detection method dialog"
+                        fontIcon="help"></mat-icon>
+                </button>
+            </div>
+            <mat-icon class="overall-score-icon" aria-hidden="false" aria-label="Overall score emoji"
+                [fontIcon]="getOverallScoreIcon(responses.value)"></mat-icon>
+            <span class="overall-score-value">{{responses.value * 100}} %</span>
+        </div>
+        <mat-grid-list cols="2" rowHeight="8rem">
             <mat-grid-tile *ngFor="let response of responses.responses">
-                <app-result-method [response]="response"></app-result-method>
+                <app-result-method class="detection-method" [response]="response"></app-result-method>
             </mat-grid-tile>
         </mat-grid-list>
-    </div>
-</div>
+    </ng-container>
+</ng-container>
 
-<ng-template>
-    <div>
+<ng-template #loading>
+    <div class="center-container">
         <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<ng-template #no_results>
+    <div class="center-container text-center">
+        No results to be shown. <br />
+        There is no detection method for this type of file.
     </div>
 </ng-template>

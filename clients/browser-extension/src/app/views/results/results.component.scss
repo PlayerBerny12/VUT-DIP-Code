@@ -1,0 +1,33 @@
+.overall-score {
+    margin: 2rem 1rem 0rem 1rem;
+}
+
+.overall-score-headline div {
+    font-size: large;
+    display: inline-block;
+    margin-right: 6rem;
+    vertical-align: super;
+
+}
+
+.overall-score-icon {
+    width: 75px;
+    height: 75px;
+    font-size: 75px;
+    margin-right: 2rem;
+}
+
+.overall-score-value {
+    font-size: 2.75rem;    
+    line-height: 75px;
+    vertical-align: top;
+}
+
+.detection-method {
+    width: 100%;
+    margin: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}

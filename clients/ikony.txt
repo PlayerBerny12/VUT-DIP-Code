@@ -1,6 +1,0 @@
-ikony 
--------
-mood
-file_upload
-link
-highlight_alt

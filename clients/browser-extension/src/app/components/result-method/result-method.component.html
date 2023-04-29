@@ -2,16 +2,13 @@
     <div class="header">
         <span>{{ response.detectionMethod.name }}</span>
         <button mat-mini-fab (click)="openDetectionMethodDialog(response.detectionMethod)">
-            <div class="icon-container">
-                <mat-icon class="icon" aria-hidden="false" aria-label="Detection method dialog"
-                    fontIcon="help"></mat-icon>
-            </div>
+            <mat-icon class="icon" aria-hidden="false" aria-label="Detection method dialog" fontIcon="help"></mat-icon>
         </button>
     </div>
     <div class="bar-container">
         <div class="bar-border">
             <div class="bar" [style]="getWidth(response.value)"></div>
-            <div class="bar-value">{{ response.value }} %</div>
+            <div class="bar-value">{{ response.value ? response.value * 100 : '-' }} %</div>
         </div>
         <div class="bar-minmax">
             <span>0 %</span>
