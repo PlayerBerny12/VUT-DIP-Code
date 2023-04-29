@@ -74,23 +74,25 @@ public class RequestService : IRequestService
 
     public async Task<ResponsesVM?> GetRequestResonses(long requestID)
     {
+        Request request = await _databaseContext.Requests.Where(x => x.ID == requestID).FirstAsync();
+
+        if(request.Status == RequestStatus.Processing) {
+            return null;
+        }
+
         List<Response> responses = await _databaseContext.Responses.Where(x => x.RequestID == requestID)
           .Include(x => x.Request)
           .ToListAsync();
         
-        if(responses.Count == 0) {
-            return null;
-        }
-
         List<DetectionMethodVM> detectionMethods = new();
         _configuration.GetRequiredSection("DetectionMethods").Bind(detectionMethods);
 
         List<ResponseVM> responseVMs = new();
-        responses.ForEach(response => {
+        detectionMethods.ForEach(detectionMethod => {
             responseVMs.Add(new()
             {
-                DetectionMethod = detectionMethods.First(x => x.ID == response.MethodID),
-                Value = response.Value
+                DetectionMethod = detectionMethod,
+                Value = responses.FirstOrDefault(x => x.MethodID == detectionMethod.ID)?.Value
             });
         });
 

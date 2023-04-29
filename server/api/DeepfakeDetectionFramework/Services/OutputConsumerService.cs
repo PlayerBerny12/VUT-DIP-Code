@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text;
 using DeepfakeDetectionFramework.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace DeepfakeDetectionFramework.Services;
 
@@ -45,7 +46,12 @@ public class OutputConsumerService : BackgroundService
             byte[] body = args.Body.ToArray();
             string message = Encoding.UTF8.GetString(body).Replace('\'', '\"');
 
-            List<ResponseBackendVM>? responsesVM = JsonSerializer.Deserialize<List<ResponseBackendVM>>(message);
+            List<ResponseBackendVM>? responsesVM = null;
+            try {
+                responsesVM = JsonSerializer.Deserialize<List<ResponseBackendVM>>(message);
+            } catch(Exception ex) {
+                Log.Error(ex, "Error during processing occured.");
+            }
 
             if (responsesVM != null)
             {
@@ -58,11 +64,15 @@ public class OutputConsumerService : BackgroundService
                     await databaseContext.AddAsync(response);
                 }
 
-                await databaseContext.SaveChangesAsync();
-
+                // Change request status 
                 Request request = await databaseContext.Requests.Where(x => x.ID == responsesVM.First().RequestID)
                     .FirstAsync();
+                request.Status = RequestStatus.Done;
+
+                // Remove file
                 _fileService.RemoveFile(request.Filename);
+                                
+                await databaseContext.SaveChangesAsync();
             }
 
             _channel.BasicAck(args.DeliveryTag, false);

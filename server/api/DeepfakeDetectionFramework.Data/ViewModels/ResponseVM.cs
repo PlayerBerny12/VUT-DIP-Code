@@ -13,7 +13,7 @@ public class ResponseVM
 {
     public required DetectionMethodVM DetectionMethod { get; set; }
     
-    public required double Value { get; set; }
+    public required double? Value { get; set; }
 }
 
 public class ResponseBackendVM
