@@ -19,7 +19,7 @@ public class RequestService : IRequestService
     const string QUEUE_IMAGE = "queue_image";
     const string QUEUE_AUDIO = "queue_audio";
 
-    public RequestService(IConfiguration configuration, DatabaseContext databaseContext, 
+    public RequestService(IConfiguration configuration, DatabaseContext databaseContext,
         MapperConfig mapperConfig, IMessageService messageService)
     {
         _configuration = configuration;
@@ -33,7 +33,7 @@ public class RequestService : IRequestService
         Request? request = await _databaseContext.Requests.Where(x => x.Checksum == checksum)
             .FirstOrDefaultAsync();
 
-        if(request == null)
+        if (request == null)
         {
             request = new()
             {
@@ -76,19 +76,21 @@ public class RequestService : IRequestService
     {
         Request request = await _databaseContext.Requests.Where(x => x.ID == requestID).FirstAsync();
 
-        if(request.Status == RequestStatus.Processing) {
+        if (request.Status == RequestStatus.Processing)
+        {
             return null;
         }
 
         List<Response> responses = await _databaseContext.Responses.Where(x => x.RequestID == requestID)
           .Include(x => x.Request)
           .ToListAsync();
-        
+
         List<DetectionMethodVM> detectionMethods = new();
         _configuration.GetRequiredSection("DetectionMethods").Bind(detectionMethods);
 
         List<ResponseVM> responseVMs = new();
-        detectionMethods.ForEach(detectionMethod => {
+        detectionMethods.ForEach(detectionMethod =>
+        {
             responseVMs.Add(new()
             {
                 DetectionMethod = detectionMethod,
@@ -96,9 +98,9 @@ public class RequestService : IRequestService
             });
         });
 
-        double responsesMaxValue = responses.Max(x => x.Value);
+        double responsesMinValue = responses.Min(x => x.Value);
         double responsesSumValue = responses.Sum(x => x.Value);
-        double responsesGlobalValue = (responsesSumValue + (responsesMaxValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
+        double responsesGlobalValue = (responsesSumValue + (responsesMinValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
 
         ResponsesVM responsesVM = new()
         {

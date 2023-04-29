@@ -5,8 +5,8 @@
     margin-top: 0.5rem;
 }
 
-.bar {        
-    position: absolute;    
+.bar {
+    position: absolute;
     height: 1.5rem;
     background-color: #3771C8;
 }
@@ -14,11 +14,12 @@
 .bar-value {
     position: absolute;
     top: 3px;
-    left: 6rem;
+    left: 88px;
     z-index: 10;
 }
 
-.header, .bar-minmax {
+.header,
+.bar-minmax {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;

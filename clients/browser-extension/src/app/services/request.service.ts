@@ -56,9 +56,12 @@ export class RequestService {
       );
   }
 
+  roundResults(value: number) {
+    return Math.round(value * 100) / 100;
+  }
+
   private handleError(error: HttpErrorResponse) {
     this.snackBar.open("Start detection failed.", undefined, { duration: 3500 });
-    // return throwError(() => error)
-    return of(null)
+    return throwError(() => error)
   }
 }

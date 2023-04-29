@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
+import { OverallScoreDialogComponent } from 'src/app/components/overall-score-dialog/overall-score-dialog.component';
 import { ResponsesVM } from 'src/app/models/response.model';
 import { RequestService } from 'src/app/services/request.service';
 
@@ -9,35 +11,21 @@ import { RequestService } from 'src/app/services/request.service';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-  responsesSource = new Subject<ResponsesVM>();
+  private responsesSource = new Subject<ResponsesVM>();
   responses$ = this.responsesSource.asObservable();
 
-  constructor(private requestService: RequestService) { }
+  constructor(
+    public requestService: RequestService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    // this.requestService.getResults()
-    //   .subscribe(data => this.responsesSource.next(data));
-    setTimeout(() => {
-      this.responsesSource.next({
-        value: 0.5,
-        responses: [
-          { detectionMethod: { description: "very long long long desc\n asdasd ada kjlajfklasfsamf af saf.", name: "name 1", trainingDataset: "dataset 1" }, value: 0.6 },
-          { detectionMethod: { description: "desc", name: "name 2", trainingDataset: "dataset 1" }, value: null },
-          { detectionMethod: { description: "very long long long desc\n asdasd ada kjlajfklasfsamf af saf.", name: "name 1", trainingDataset: "dataset 1" }, value: 0.6 },
-          { detectionMethod: { description: "desc", name: "name 2", trainingDataset: "dataset 1" }, value: null },
-          { detectionMethod: { description: "very long long long desc\n asdasd ada kjlajfklasfsamf af saf.", name: "name 1", trainingDataset: "dataset 1" }, value: 0.6 },
-          { detectionMethod: { description: "desc", name: "name 2", trainingDataset: "dataset 1" }, value: null }
-        ]
-      });
-      // this.responsesSource.next({
-      //   value: null,
-      //   responses: []
-      // });
-    }, 500);
+    this.requestService.getResults()
+      .subscribe(data => this.responsesSource.next(data));
   }
 
   openOverallScoreDialog() {
-
+    this.dialog.open(OverallScoreDialogComponent);
   }
 
   getOverallScoreIcon(value: number) {

@@ -1,7 +1,8 @@
 <h1 mat-dialog-title>{{ detectionMethod.name }}</h1>
 <div mat-dialog-content>
   <div>{{ detectionMethod.description }}</div>
-  <div>Training dataset: {{ detectionMethod.trainingDataset }}</div>
+  <br />
+  <div><span class="bold">Training dataset:</span> {{ detectionMethod.trainingDataset }}</div>
 </div>
 <div mat-dialog-actions class="actions">
   <button mat-button mat-dialog-close>Close</button>

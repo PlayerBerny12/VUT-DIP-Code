@@ -10,7 +10,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class FeedbackDialogComponent {
   feedbackFormControl = new FormControl<string>('', [Validators.required]);
 
-  constructor(public dialogRef: MatDialogRef<FeedbackDialogComponent>) { }
+  constructor(private dialogRef: MatDialogRef<FeedbackDialogComponent>) { }
 
   closeClick(): void {
     this.dialogRef.close();

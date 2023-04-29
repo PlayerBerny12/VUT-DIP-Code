@@ -18,8 +18,7 @@ $my-blue-palette: (
     A200 : #a7bfff,
     A400 : #749aff,
     A700 : #5b87ff,
-    contrast: (
-        50 : #000000,
+    contrast: (50 : #000000,
         100 : #000000,
         200 : #000000,
         300 : #000000,
@@ -39,34 +38,40 @@ $my-blue-palette: (
 $my-primary: mat.define-palette($my-blue-palette, 500);
 $my-accent: mat.define-palette($my-blue-palette, A200, A100, A400);
 
-$my-theme: mat.define-light-theme((
- color: (
-   primary: $my-primary,
-   accent: $my-accent,
- ),
- typography: mat.define-typography-config(),
- density: 0,
-));
+$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+                accent: $my-accent,
+            ),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
 
 @include mat.all-component-themes($my-theme);
 
 // Default styles
-html { 
-    position: relative;  
-} 
+html {
+    position: relative;
+}
 
-body { 
-    margin: 0; 
+body {
+    margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    width: 500px; 
-    height:350px !important; 
-    overflow-y: scroll; 
+    width: 500px;
+    height: 350px !important;
+    overflow-y: scroll;
     overflow-x: scroll;
-} 
+}
 
 .center-container {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
 }

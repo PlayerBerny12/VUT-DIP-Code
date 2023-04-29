@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Overall score</h1>
+<div mat-dialog-content>
+  <div>
+    It combines the results of all the detection methods below using a weighted average.
+    All values have a weight of 1 except the lowest value, which has a weight equal to the number of all results.
+    The formula for calculating the value is as follows:
+  </div>
+  <br />
+  <div>
+    <span class="text-center">(sumAll + (min * (count - 1))) / ((count * 2) - 1)</span>
+  </div>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close>Close</button>
+</div>

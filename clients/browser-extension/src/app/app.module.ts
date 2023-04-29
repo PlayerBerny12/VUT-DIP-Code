@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { ResultsComponent } from './views/results/results.component';
 import { LinkDialogComponent } from './components/link-dialog/link-dialog.component';
+import { OverallScoreDialogComponent } from './components/overall-score-dialog/overall-score-dialog.component';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 import { DetectionMethodDialogComponent } from './components/detection-method-dialog/detection-method-dialog.component';
 
@@ -26,6 +27,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AppComponent,
     HomeComponent,
     LinkDialogComponent,
+    OverallScoreDialogComponent,
     FeedbackDialogComponent,
     ResultsComponent,
     ResultMethodComponent,
