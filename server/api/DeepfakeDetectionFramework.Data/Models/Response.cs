@@ -15,5 +15,5 @@ public class Response
 
     public required long MethodID { get; set; }
 
-    public required double Value { get; set; }
+    public required double? Value { get; set; }
 }

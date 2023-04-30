@@ -13,19 +13,27 @@ spec:
         app: dfdf-video-controller
     spec:
       containers:
-        - name: dfdf-video-controller
-          image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: RabbitMQ
-            value: "rabbitmq-service"
-          - name: RabbitMQQueue
-            value: "queue_video"
-          volumeMounts:
-          - name: processingdata
-            mountPath: /mnt/processingdata
-            readOnly: true
+      - name: dfdf-video-controller
+        image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: RabbitMQ
+          value: "rabbitmq-service"
+        - name: RabbitMQQueue
+          value: "queue_video"
+        - name: RabbitMQOutputQueue
+          value: "queue_output"
+        - name: ProcessingUnitsPorts
+          value: "50500:50501"
+      - name: dfdf-detection-video-1
+        image: ghcr.io/playerberny12/fakeVideoForensics/dfdf-detection-video-1:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
       volumes:
       - name: processingdata
         persistentVolumeClaim:
           claimName: processing-data
+          readOnly: true

@@ -13,60 +13,60 @@ spec:
         app: dfdf-audio-controller
     spec:
       containers:
-        - name: dfdf-audio-controller
-          image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: RabbitMQ
-            value: "rabbitmq-service"
-          - name: RabbitMQQueue
-            value: "queue_audio"
-          - name: RabbitMQOutputQueue
-            value: "queue_output"
-          - name: ProcessingUnitsPorts
-            value: "50500:50501"
-        - name: dfdf-detection-audio-1
-          image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-1:master
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-          - name: processingdata
-            mountPath: /mnt/processingdata
-            readOnly: true
-        - name: dfdf-detection-audio-2
-          image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-2:master
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-          - name: processingdata
-            mountPath: /mnt/processingdata
-            readOnly: true
-        # - name: dfdf-detection-audio-3
-        #   image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-3:master
-        #   imagePullPolicy: IfNotPresent
-        #   volumeMounts:
-        #   - name: processingdata
-        #     mountPath: /mnt/processingdata
-        #     readOnly: true
-        # - name: dfdf-detection-audio-4
-        #   image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-4:master
-        #   imagePullPolicy: IfNotPresent
-        #   volumeMounts:
-        #   - name: processingdata
-        #     mountPath: /mnt/processingdata
-        #     readOnly: true
-        # - name: dfdf-detection-audio-5
-        #   image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-5:master
-        #   imagePullPolicy: IfNotPresent
-        #   volumeMounts:
-        #   - name: processingdata
-        #     mountPath: /mnt/processingdata
-        #     readOnly: true
-        # - name: dfdf-detection-audio-6
-        #   image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-6:master
-        #   imagePullPolicy: IfNotPresent
-        #   volumeMounts:
-        #   - name: processingdata
-        #     mountPath: /mnt/processingdata
-        #     readOnly: true
+      - name: dfdf-audio-controller
+        image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: RabbitMQ
+          value: "rabbitmq-service"
+        - name: RabbitMQQueue
+          value: "queue_audio"
+        - name: RabbitMQOutputQueue
+          value: "queue_output"
+        - name: ProcessingUnitsPorts
+          value: "50500:50501"
+      - name: dfdf-detection-audio-1
+        image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-1:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
+      - name: dfdf-detection-audio-2
+        image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-2:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
+      - name: dfdf-detection-audio-3
+        image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-3:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
+      - name: dfdf-detection-audio-4
+        image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-4:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
+      - name: dfdf-detection-audio-5
+        image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-5:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
+      - name: dfdf-detection-audio-6
+        image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-6:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
       volumes:
       - name: processingdata
         persistentVolumeClaim:

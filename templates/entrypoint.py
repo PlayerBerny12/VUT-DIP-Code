@@ -73,8 +73,9 @@ def detect(id: int, checksum: str, filename: str, status: int, type: int):
         results = detection_method(file_path)
 
         # Convert results to interval <0-1> (optional)
-        results = results_normalization(results)
+        if results:
+            results = results_normalization(results)
 
         return {"RequestID": id, "Value": results, "MethodID": ID}
     else:
-        return {"RequestID": id, "Value": -1, "MethodID": ID}
+        return {"RequestID": id, "Value": None, "MethodID": ID}

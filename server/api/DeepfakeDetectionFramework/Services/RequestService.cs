@@ -98,9 +98,9 @@ public class RequestService : IRequestService
             });
         });
 
-        double responsesMinValue = responses.Min(x => x.Value);
-        double responsesSumValue = responses.Sum(x => x.Value);
-        double responsesGlobalValue = (responsesSumValue + (responsesMinValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
+        double? responsesMinValue = responses.Min(x => x.Value);
+        double? responsesSumValue = responses.Sum(x => x.Value);
+        double? responsesGlobalValue = (responsesSumValue + (responsesMinValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
 
         ResponsesVM responsesVM = new()
         {

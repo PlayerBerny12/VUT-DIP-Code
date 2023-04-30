@@ -13,19 +13,27 @@ spec:
         app: dfdf-image-controller
     spec:
       containers:
-        - name: dfdf-image-controller
-          image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
-          imagePullPolicy: IfNotPresent
-          env:
-          - name: RabbitMQ
-            value: "rabbitmq-service"
-          - name: RabbitMQQueue
-            value: "queue_image"
-          volumeMounts:
-          - name: processingdata
-            mountPath: /mnt/processingdata
-            readOnly: true
+      - name: dfdf-image-controller
+        image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: RabbitMQ
+          value: "rabbitmq-service"
+        - name: RabbitMQQueue
+          value: "queue_image"
+        - name: RabbitMQOutputQueue
+          value: "queue_output"
+        - name: ProcessingUnitsPorts
+          value: "50500"
+      - name: dfdf-detection-image-1
+        image: ghcr.io/playerberny12/XXX/dfdf-detection-image-1:master
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: processingdata
+          mountPath: /mnt/processingdata
+          readOnly: true
       volumes:
       - name: processingdata
         persistentVolumeClaim:
           claimName: processing-data
+          readOnly: true

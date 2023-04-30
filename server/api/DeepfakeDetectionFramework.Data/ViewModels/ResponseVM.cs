@@ -4,7 +4,7 @@ namespace DeepfakeDetectionFramework.Data.ViewModels;
 
 public class ResponsesVM
 {
-    public required double Value { get; set; }
+    public required double? Value { get; set; }
         
     public required List<ResponseVM> Responses { get; set; }
 }
@@ -22,5 +22,5 @@ public class ResponseBackendVM
 
     public required long RequestID { get; set; }
 
-    public required double Value { get; set; }    
+    public required double? Value { get; set; }    
 }
