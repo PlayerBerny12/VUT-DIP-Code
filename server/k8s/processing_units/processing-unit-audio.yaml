@@ -72,3 +72,27 @@ spec:
         persistentVolumeClaim:
           claimName: processing-data
           readOnly: true
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dfdf-audio-controller-deployment  
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dfdf-audio-controller-deployment  
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Object
+      object:
+        metric:
+          name: rabbitmq_metrics_audio_queue_depth
+        describedObject:
+          kind: Service
+          name: rabbitmq-service
+          apiVersion: v1
+        target:
+          type: Value
+          averageValue: 2

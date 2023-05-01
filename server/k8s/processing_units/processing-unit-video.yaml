@@ -26,7 +26,7 @@ spec:
         - name: ProcessingUnitsPorts
           value: "50500:50501"
       - name: dfdf-detection-video-1
-        image: ghcr.io/playerberny12/fakeVideoForensics/dfdf-detection-video-1:master
+        image: ghcr.io/playerberny12/fakevideoforensics/dfdf-detection-video-1:master
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: processingdata
@@ -37,3 +37,27 @@ spec:
         persistentVolumeClaim:
           claimName: processing-data
           readOnly: true
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dfdf-video-controller-deployment  
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: dfdf-video-controller-deployment  
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Object
+      object:
+        metric:
+          name: rabbitmq_metrics_video_queue_depth
+        describedObject:
+          kind: Service
+          name: rabbitmq-service
+          apiVersion: v1
+        target:
+          type: Value
+          averageValue: 2

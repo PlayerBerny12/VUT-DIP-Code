@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adapter-config
+data:
+  config.yaml: |-
+    "rules":
+    - "seriesQuery": rabbitmq_detailed_queue_messages{namespace!="", pod!=""}
+      "resources":
+        "template": "<<.Resource>>"
+      "name":
+        "matches": ""
+        "as": "rabbitmq_metrics_audio_queue_depth"
+      "metricsQuery": |
+        sum(<<.Series>>{<<.LabelMatchers>>,queue="queue_audio"}) by (<<.GroupBy>>)
+    - "seriesQuery": rabbitmq_detailed_queue_messages{namespace!="", pod!=""}
+      "resources":
+        "template": "<<.Resource>>"
+      "name":
+        "matches": ""
+        "as": "rabbitmq_metrics_video_image_depth"
+      "metricsQuery": |
+        sum(<<.Series>>{<<.LabelMatchers>>,queue="queue_image"}) by (<<.GroupBy>>)
+    - "seriesQuery": rabbitmq_detailed_queue_messages{namespace!="", pod!=""}
+      "resources":
+        "template": "<<.Resource>>"
+      "name":
+        "matches": ""
+        "as": "rabbitmq_metrics_video_queue_depth"
+      "metricsQuery": |
+        sum(<<.Series>>{<<.LabelMatchers>>,queue="queue_video"}) by (<<.GroupBy>>)
