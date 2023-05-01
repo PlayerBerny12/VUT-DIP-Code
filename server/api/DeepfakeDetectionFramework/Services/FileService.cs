@@ -68,6 +68,7 @@ public class FileService : IFileService
 
     private string CalculateFileChecksum(FileStream fileStream)
     {
+        fileStream.Seek(0, SeekOrigin.Begin);
         using SHA256 sha256 = SHA256.Create();
         return Convert.ToBase64String(sha256.ComputeHash(fileStream));
     }
