@@ -24,7 +24,7 @@ spec:
         - name: RabbitMQOutputQueue
           value: "queue_output"
         - name: ProcessingUnitsPorts
-          value: "50500:50501"
+          value: "50500"
       - name: dfdf-detection-video-1
         image: ghcr.io/playerberny12/fakevideoforensics/dfdf-detection-video-1:master
         imagePullPolicy: IfNotPresent
