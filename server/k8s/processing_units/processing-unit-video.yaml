@@ -30,10 +30,10 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "2G"
+            memory: "4G"
             cpu: "200m"
           limits:
-            memory: "2G"
+            memory: "4G"
             cpu: "200m"
         volumeMounts:
         - name: processingdata
