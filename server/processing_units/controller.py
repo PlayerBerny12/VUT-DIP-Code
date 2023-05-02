@@ -17,7 +17,9 @@ async def http_get_async(session: Any, url: str, params: Dict[str, str]):
             return {"error": "Internal error occurred."}
 
 async def call_all_processing_units(urls: str, params: Dict[str, str]):
-    async with aiohttp.ClientSession() as session:
+    timeout = aiohttp.ClientTimeout(total=600)
+    
+    async with aiohttp.ClientSession(timeout=timeout) as session:
         tasks = []
         for url in urls:
             tasks.append(asyncio.ensure_future(http_get_async(session, url, params)))
