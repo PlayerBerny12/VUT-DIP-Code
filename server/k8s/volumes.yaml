@@ -3,24 +3,23 @@ kind: PersistentVolumeClaim
 metadata:
   name: processing-data
 spec:
-  storageClassName: hostpath
+  storageClassName: azurefile
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 25Gi
+      storage: 20Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mssql-data
 spec:
-  storageClassName: hostpath
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

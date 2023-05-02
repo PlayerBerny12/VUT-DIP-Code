@@ -21,11 +21,11 @@ spec:
         image: mcr.microsoft.com/mssql/server:2019-latest
         resources:
           requests:
-            memory: "2G"
-            cpu: "2000m"
+            memory: "1.5G"
+            cpu: "500m"
           limits:
-            memory: "2G"
-            cpu: "2000m"
+            memory: "1.5G"
+            cpu: "500m"
         ports:
         - containerPort: 1433
         env:

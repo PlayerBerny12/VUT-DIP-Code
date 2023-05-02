@@ -9,6 +9,13 @@ spec:
       default_user= guest 
       default_pass = guest
       default_user_tags.administrator = true
+  resources:
+    requests:
+      memory: "500M"
+      cpu: "200m"
+    limits:
+      memory: "500M"
+      cpu: "200m"
   service:
     type: LoadBalancer
 ---

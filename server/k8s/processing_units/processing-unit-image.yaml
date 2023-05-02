@@ -28,6 +28,13 @@
 #       - name: dfdf-detection-image-1
 #         image: ghcr.io/playerberny12/XXX/dfdf-detection-image-1:master
 #         imagePullPolicy: IfNotPresent
+#         resources:
+#           requests:
+#             memory: "2G"
+#             cpu: "200m"
+#           limits:
+#             memory: "2G"
+#             cpu: "200m"
 #         volumeMounts:
 #         - name: processingdata
 #           mountPath: /mnt/processingdata
@@ -48,7 +55,7 @@
 #     kind: Deployment
 #     name: dfdf-image-controller-deployment  
 #   minReplicas: 1
-#   maxReplicas: 10
+#   maxReplicas: 3
 #   metrics:
 #     - type: Object
 #       object:

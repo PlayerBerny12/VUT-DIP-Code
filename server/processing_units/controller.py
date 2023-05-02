@@ -14,7 +14,7 @@ async def http_get_async(session: Any, url: str, params: Dict[str, str]):
             json = await resp.json()
             return json
         else :
-            return {"error": "Internal error occurred."}
+            return None
 
 async def call_all_processing_units(urls: str, params: Dict[str, str]):
     timeout = aiohttp.ClientTimeout(total=600)
@@ -25,6 +25,7 @@ async def call_all_processing_units(urls: str, params: Dict[str, str]):
             tasks.append(asyncio.ensure_future(http_get_async(session, url, params)))
 
         responses = await asyncio.gather(*tasks)
+        responses = [i for i in responses if i is not None]
     return responses
 
 def create_channel(queue_name: str):
@@ -47,7 +48,7 @@ def on_message_received(channel: Any, method: Any, _, body: bytes):
 
     queue_output = os.environ["RabbitMQOutputQueue"]    
     channel_output = create_channel(queue_output)
-    channel_output.basic_publish("", queue_output, str(responses))
+    channel_output.basic_publish("", queue_output, json.dumps(responses))
     
     channel.basic_ack(delivery_tag=method.delivery_tag)    
 

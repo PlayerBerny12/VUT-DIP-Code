@@ -24,10 +24,17 @@ spec:
         - name: RabbitMQOutputQueue
           value: "queue_output"
         - name: ProcessingUnitsPorts
-          value: "50500:50501"
+          value: "50500:50501:50502:50503:50504:50505"
       - name: dfdf-detection-audio-1
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-1:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -35,6 +42,13 @@ spec:
       - name: dfdf-detection-audio-2
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-2:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -42,6 +56,13 @@ spec:
       - name: dfdf-detection-audio-3
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-3:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -49,6 +70,13 @@ spec:
       - name: dfdf-detection-audio-4
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-4:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -56,6 +84,13 @@ spec:
       - name: dfdf-detection-audio-5
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-5:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -63,6 +98,13 @@ spec:
       - name: dfdf-detection-audio-6
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-6:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -83,7 +125,7 @@ spec:
     kind: Deployment
     name: dfdf-audio-controller-deployment  
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 3
   metrics:
     - type: Object
       object:

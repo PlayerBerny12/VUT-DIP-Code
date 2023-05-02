@@ -28,6 +28,13 @@ spec:
       - name: dfdf-detection-video-1
         image: ghcr.io/playerberny12/fakevideoforensics/dfdf-detection-video-1:master
         imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "2G"
+            cpu: "200m"
+          limits:
+            memory: "2G"
+            cpu: "200m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -48,7 +55,7 @@ spec:
     kind: Deployment
     name: dfdf-video-controller-deployment  
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 3
   metrics:
     - type: Object
       object:
