@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { BehaviorSubject } from 'rxjs';
 import { DetectionMethodVM } from 'src/app/models/detection_method.model';
 import { ResponseVM } from 'src/app/models/response.model';
@@ -26,7 +27,8 @@ export class ResultMethodComponent {
 
   openDetectionMethodDialog(detectionMethod: DetectionMethodVM): void {
     this.dialog.open(DetectionMethodDialogComponent, {
-      data: detectionMethod
+      data: detectionMethod,
+      scrollStrategy: new NoopScrollStrategy()
     });
   }
 

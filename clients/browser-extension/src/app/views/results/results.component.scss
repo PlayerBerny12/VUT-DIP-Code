@@ -1,5 +1,8 @@
 .overall-score {
     margin: 2rem 1rem 0rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .overall-score-headline div {
@@ -21,6 +24,10 @@
     font-size: 2.75rem;
     line-height: 75px;
     vertical-align: top;
+}
+
+.back-button {
+    margin-right: 3.5rem;
 }
 
 .detection-method {

@@ -17,7 +17,7 @@ export class FeedbackService {
     let formData: FormData = new FormData();
     formData.append('feedback', feedback);
 
-    return this.http.post('http://localhost/api/feedback', formData)
+    return this.http.post('http://20.8.133.140/api/feedback', formData)
       .pipe(
         tap({
           next: () => this.snackBar.open("Feedback successfully sent.", undefined, { duration: 3500 }),

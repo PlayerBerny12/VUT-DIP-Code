@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
 import { ResultsComponent } from './views/results/results.component';
+import { ResultMethodComponent } from './components/result-method/result-method.component';
 import { LinkDialogComponent } from './components/link-dialog/link-dialog.component';
 import { OverallScoreDialogComponent } from './components/overall-score-dialog/overall-score-dialog.component';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
@@ -18,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ResultMethodComponent } from './components/result-method/result-method.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -26,11 +26,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
   declarations: [
     AppComponent,
     HomeComponent,
+    ResultsComponent,
+    ResultMethodComponent,
     LinkDialogComponent,
     OverallScoreDialogComponent,
     FeedbackDialogComponent,
-    ResultsComponent,
-    ResultMethodComponent,
     DetectionMethodDialogComponent
   ],
   imports: [

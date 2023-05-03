@@ -2,16 +2,25 @@
     <ng-container *ngIf="(responses$ | async) as responses else loading_template">
         <ng-container *ngIf="responses.value else no_results_template">
             <div class="overall-score">
-                <div class="overall-score-headline">
-                    <div>Overall score:</div>
-                    <button mat-mini-fab (click)="openOverallScoreDialog()">
-                        <mat-icon class="icon" aria-hidden="false" aria-label="Detection method dialog"
-                            fontIcon="help"></mat-icon>
-                    </button>
+                <div>
+                    <div class="overall-score-headline">
+                        <div>Overall score:</div>
+                        <button mat-mini-fab (click)="openOverallScoreDialog()">
+                            <mat-icon class="icon" aria-hidden="false" aria-label="Detection method dialog"
+                                fontIcon="help"></mat-icon>
+                        </button>
+                    </div>
+                    <div>
+                        <mat-icon class="overall-score-icon" aria-hidden="false" aria-label="Overall score emoji"
+                            [fontIcon]="getOverallScoreIcon(responses.value)"></mat-icon>
+                        <span class="overall-score-value">{{requestService.roundResults(responses.value * 100)}}
+                            %</span>
+                    </div>
                 </div>
-                <mat-icon class="overall-score-icon" aria-hidden="false" aria-label="Overall score emoji"
-                    [fontIcon]="getOverallScoreIcon(responses.value)"></mat-icon>
-                <span class="overall-score-value">{{requestService.roundResults(responses.value * 100)}} %</span>
+                <button mat-fab class="back-button" (click)="goBack()">
+                    <mat-icon class="icon" aria-hidden="false" aria-label="Back button"
+                        fontIcon="arrow_back"></mat-icon>
+                </button>
             </div>
             <mat-grid-list cols="2" rowHeight="8rem">
                 <mat-grid-tile *ngFor="let response of responses.responses">

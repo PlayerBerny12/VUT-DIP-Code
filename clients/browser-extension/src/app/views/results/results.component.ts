@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs';
 import { OverallScoreDialogComponent } from 'src/app/components/overall-score-dialog/overall-score-dialog.component';
 import { ResponsesVM } from 'src/app/models/response.model';
@@ -16,7 +18,8 @@ export class ResultsComponent implements OnInit {
 
   constructor(
     public requestService: RequestService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +28,9 @@ export class ResultsComponent implements OnInit {
   }
 
   openOverallScoreDialog() {
-    this.dialog.open(OverallScoreDialogComponent);
+    this.dialog.open(OverallScoreDialogComponent, {
+      scrollStrategy: new NoopScrollStrategy()
+    });
   }
 
   getOverallScoreIcon(value: number) {
@@ -40,5 +45,9 @@ export class ResultsComponent implements OnInit {
     } else {
       return "sentiment_very_satisfied"
     }
+  }
+
+  goBack() {
+    this.router.navigate(["/"]);
   }
 }

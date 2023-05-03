@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { FeedbackService } from './services/feedback.service';
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 
@@ -17,7 +18,9 @@ export class AppComponent {
   ) { }
 
   openFeedbackDialog(): void {
-    const dialogRef = this.dialog.open(FeedbackDialogComponent);
+    const dialogRef = this.dialog.open(FeedbackDialogComponent, {
+      scrollStrategy: new NoopScrollStrategy()
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)
