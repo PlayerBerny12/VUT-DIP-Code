@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { LinkDialogComponent } from 'src/app/components/link-dialog/link-dialog.component';
@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   private loadingSource = new BehaviorSubject(false);
   loading$ = this.loadingSource.asObservable();
 
@@ -19,6 +19,10 @@ export class HomeComponent {
     private dialog: MatDialog,
     private requestService: RequestService
   ) { }
+
+  ngOnInit(): void {
+    this.requestService.requestID = null;
+  }
 
   fileInputChange(fileInputEvent: any) {
     this.loadingSource.next(true);
