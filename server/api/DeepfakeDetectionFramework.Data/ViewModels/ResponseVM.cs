@@ -16,6 +16,14 @@ public class ResponseVM
     public required double? Value { get; set; }
 }
 
+public class ResponsesBackendVM
+{
+    public required long RequestID { get; set; }
+
+    public required List<ResponseBackendVM> Responses { get; set; }
+}
+
+
 public class ResponseBackendVM
 {
     public required long MethodID { get; set; }

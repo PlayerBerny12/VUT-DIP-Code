@@ -26,7 +26,7 @@ public class FileService : IFileService
 
         }
 
-        ProcessingType? fileType = GetFileType(filename, result.Content.Headers.ContentType!.ToString());
+        ProcessingType? fileType = GetFileType(result.Content.Headers.ContentType!.ToString());
         if (fileType == null)
         {
             throw new Exception("Unsupported file type");
@@ -84,6 +84,35 @@ public class FileService : IFileService
         }
 
         if (!expectedContentType.Contains(contentType))
+        {
+            return null;
+        }
+
+        return contentType.Split('/')[0] switch
+        {
+            "video" => ProcessingType.Video,
+            "image" => ProcessingType.Image,
+            "audio" => ProcessingType.Audio,
+            _ => null,
+        };
+    }
+
+    private ProcessingType? GetFileType(string contentType)
+    {
+        Dictionary<string, List<string>> supportedFileTypes = new();
+        _configuration.GetRequiredSection("SupportedFileTypes").Bind(supportedFileTypes);
+
+        bool found = false;
+        foreach (var fileType in supportedFileTypes)
+        {
+            if (fileType.Value.Contains(contentType))
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
         {
             return null;
         }

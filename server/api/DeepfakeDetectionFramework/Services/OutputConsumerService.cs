@@ -46,9 +46,9 @@ public class OutputConsumerService : BackgroundService
             byte[] body = args.Body.ToArray();
             string message = Encoding.UTF8.GetString(body).Replace('\'', '\"');
 
-            List<ResponseBackendVM>? responsesVM = null;
+            ResponsesBackendVM? responsesVM = null;
             try {
-                responsesVM = JsonSerializer.Deserialize<List<ResponseBackendVM>>(message);
+                responsesVM = JsonSerializer.Deserialize<ResponsesBackendVM>(message);
             } catch(Exception ex) {
                 Log.Error(ex, "Error during processing occured.");
             }
@@ -58,14 +58,14 @@ public class OutputConsumerService : BackgroundService
                 using IServiceScope scope = _scopeFactory.CreateScope();
                 DatabaseContext databaseContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 
-                foreach (ResponseBackendVM responseVM in responsesVM)
+                foreach (ResponseBackendVM responseVM in responsesVM.Responses)
                 {
                     Response response = _mapperConfig.ToModel(responseVM);
                     await databaseContext.AddAsync(response);
                 }
 
                 // Change request status 
-                Request request = await databaseContext.Requests.Where(x => x.ID == responsesVM.First().RequestID)
+                Request request = await databaseContext.Requests.Where(x => x.ID == responsesVM.RequestID)
                     .FirstAsync();
                 request.Status = RequestStatus.Done;
 

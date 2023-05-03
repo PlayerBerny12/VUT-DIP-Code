@@ -9,15 +9,18 @@ import pika
 PROCESSING_UNITS_URLS = [f"http://localhost:{port}/detect" for port in os.environ["ProcessingUnitsPorts"].split(":")]
 
 async def http_get_async(session: Any, url: str, params: Dict[str, str]):
-    async with session.get(url, params=params) as resp:
-        if resp.status == 200:
-            json = await resp.json()
-            return json
-        else :
-            return None
+    try:
+        async with session.get(url, params=params) as resp:
+            if resp.status == 200:
+                json = await resp.json()
+                return json
+            else :
+                return None
+    except:
+        return None
 
 async def call_all_processing_units(urls: str, params: Dict[str, str]):
-    timeout = aiohttp.ClientTimeout(total=600)
+    timeout = aiohttp.ClientTimeout(total=900)
     
     async with aiohttp.ClientSession(timeout=timeout) as session:
         tasks = []
@@ -37,7 +40,7 @@ def create_channel(queue_name: str):
 
     return channel
 
-def on_message_received(channel: Any, method: Any, _, body: bytes):
+def on_message_received(channel: Any, method: Any, properties: Any, body: bytes):
     params = body.decode("utf8").replace("\'", "\"")    
     params = json.loads(params)
     params_lowecase = {key.lower():value for key, value in params.items()}
@@ -48,16 +51,14 @@ def on_message_received(channel: Any, method: Any, _, body: bytes):
 
     queue_output = os.environ["RabbitMQOutputQueue"]    
     channel_output = create_channel(queue_output)
-    channel_output.basic_publish("", queue_output, json.dumps(responses))
-    
-    channel.basic_ack(delivery_tag=method.delivery_tag)    
+    channel_output.basic_publish("", queue_output, json.dumps({"RequestID": params["ID"], "Responses": responses}))    
 
 def main():
     queue = os.environ["RabbitMQQueue"]
     channel = create_channel(queue)
             
     channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(queue=queue, on_message_callback=on_message_received)
+    channel.basic_consume(queue=queue, auto_ack=True, on_message_callback=on_message_received)
 
     print(f"Start consuming: {queue}")
     channel.start_consuming()

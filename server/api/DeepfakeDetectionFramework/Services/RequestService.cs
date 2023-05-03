@@ -91,11 +91,14 @@ public class RequestService : IRequestService
         List<ResponseVM> responseVMs = new();
         detectionMethods.ForEach(detectionMethod =>
         {
-            responseVMs.Add(new()
+            if(detectionMethod.Type == request.Type)
             {
-                DetectionMethod = detectionMethod,
-                Value = responses.FirstOrDefault(x => x.MethodID == detectionMethod.ID)?.Value
-            });
+                responseVMs.Add(new()
+                {
+                    DetectionMethod = detectionMethod,
+                    Value = responses.FirstOrDefault(x => x.MethodID == detectionMethod.ID)?.Value
+                });
+            }
         });
 
         double? responsesMinValue = responses.Min(x => x.Value);

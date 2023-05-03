@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["DeepfakeDetectionFramework/DeepfakeDetectionFramework.csproj", "DeepfakeDetectionFramework/"]
+COPY ["DeepfakeDetectionFramework.Data/DeepfakeDetectionFramework.Data.csproj", "DeepfakeDetectionFramework.Data/"]
 RUN dotnet restore "DeepfakeDetectionFramework/DeepfakeDetectionFramework.csproj"
 COPY . .
 WORKDIR "/src/DeepfakeDetectionFramework"
