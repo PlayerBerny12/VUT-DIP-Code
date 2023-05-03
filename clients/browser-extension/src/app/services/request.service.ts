@@ -16,17 +16,10 @@ export class RequestService {
   ) { }
 
   detectFile(uploadFile: any) {
-    console.log(uploadFile);
     let formData: FormData = new FormData();
-    console.log(formData);
     formData.append('file', uploadFile);
-    console.log(formData);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "multipart/form-data"
-      })
-    };
-    return this.http.post<number>('http://20.8.133.140/api/detect/file', formData)
+
+    return this.http.post<number>('http://localhost/api/detect/file', formData)
       .pipe(
         tap(result => this.requestID = result),
         catchError(error => this.handleError(error))
@@ -37,7 +30,7 @@ export class RequestService {
     let params = new HttpParams()
       .append("link", encodeURIComponent(link));
 
-    return this.http.post<number>('http://20.8.133.140/api/detect/link', null, { params: params })
+    return this.http.post<number>('http://localhost/api/detect/link', null, { params: params })
       .pipe(
         tap(result => this.requestID = result),
         catchError(error => this.handleError(error))
@@ -48,7 +41,7 @@ export class RequestService {
     let params = new HttpParams()
       .append("requestID", this.requestID.toString());
 
-    return this.http.get<ResponsesVM>('http://20.8.133.140/api/request/results', { params: params })
+    return this.http.get<ResponsesVM>('http://localhost/api/request/results', { params: params })
       .pipe(
         repeat({ delay: 2500 }),
         filter(data => data != null),

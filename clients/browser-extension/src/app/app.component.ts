@@ -23,7 +23,6 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (result) {
         this.feedbackService.sendFeedback(result)
           .subscribe();
