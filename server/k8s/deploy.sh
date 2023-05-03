@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Predeploy DFDF methods and wait
+kubectl apply -f volumes.yaml
+kubectl apply -f processing_units/
+kubectl rollout status deployment dfdf-audio-controller-deployment
+
 # Deploy RabbitMQ cluster operator
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 

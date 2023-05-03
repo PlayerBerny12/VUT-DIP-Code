@@ -30,11 +30,11 @@
 #         imagePullPolicy: IfNotPresent
 #         resources:
 #           requests:
-#             memory: "2G"
-#             cpu: "200m"
+#             memory: "3.5G"
+#             cpu: "600m"
 #           limits:
-#             memory: "2G"
-#             cpu: "200m"
+#             memory: "3.5G"
+#             cpu: "600m"
 #         volumeMounts:
 #         - name: processingdata
 #           mountPath: /mnt/processingdata

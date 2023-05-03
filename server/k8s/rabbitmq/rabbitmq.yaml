@@ -11,10 +11,10 @@ spec:
       default_user_tags.administrator = true
   resources:
     requests:
-      memory: "500M"
+      memory: "1G"
       cpu: "200m"
     limits:
-      memory: "500M"
+      memory: "1G"
       cpu: "200m"
   service:
     type: LoadBalancer
