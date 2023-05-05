@@ -42,13 +42,16 @@ def processFile(filename, directory, file_type, output_file):
 def main():
     args = parse_args()
 
+    print(f"Start: {time()}")
+    
     with open("output.csv", "a") as output:
         for filename in listdir(args.real_dir):
             processFile(filename, args.real_dir, 1, output)
 
         for filename in listdir(args.fake_dir):
             processFile(filename, args.fake_dir, 0, output)
-
+    
+    print(f"End: {time()}")
 
 if __name__ == "__main__":
     main()

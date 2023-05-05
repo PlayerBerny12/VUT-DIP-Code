@@ -16,8 +16,6 @@ spec:
     limits:
       memory: "1G"
       cpu: "200m"
-  service:
-    type: LoadBalancer
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor

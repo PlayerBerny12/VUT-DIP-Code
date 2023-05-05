@@ -18,6 +18,7 @@ def parse_args():
 def main():
     args = parse_args()
     
+    print(f"Start: {time()}")
     with open("output3.csv", "a") as output:
         start_time = time()
         
@@ -37,7 +38,8 @@ def main():
         end_time = time()
                         
         output.write(f"{all_size};{end_time-start_time}\n")      
-            
+    
+    print(f"End: {time()}")
 
 if __name__ == "__main__":
     main()

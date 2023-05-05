@@ -30,11 +30,11 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
           limits:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -44,11 +44,11 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
           limits:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -58,11 +58,11 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
           limits:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -72,11 +72,11 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
           limits:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -86,11 +86,11 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
           limits:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -100,11 +100,11 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
           limits:
-            memory: "3.25G"
-            cpu: "500m"
+            memory: "3G"
+            cpu: "700m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata

@@ -24,6 +24,8 @@ def batch(iterable, batch_size=1):
 def main():
     args = parse_args()
     
+    print(f"Start: {time()}")
+    
     with open("output2.csv", "a") as output:
         for filenames in batch(listdir(args.dir), 5):
             start_time = time()
@@ -45,7 +47,8 @@ def main():
                 
             for _ in requestIDs:
                 output.write(f"{batch_size};{end_time-start_time}\n")      
-            
+    
+    print(f"End: {time()}")
 
 if __name__ == "__main__":
     main()
