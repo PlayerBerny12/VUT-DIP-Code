@@ -1,7 +1,8 @@
 from argparse import ArgumentParser
 from os import path, listdir
 from time import time
-from .test_core import send_request, get_responses, map_responses
+from datetime import datetime
+from test_core import send_request, get_responses, map_responses
 
 def parse_args():
     parser = ArgumentParser()
@@ -18,8 +19,9 @@ def parse_args():
 def main():
     args = parse_args()
     
-    print(f"Start: {time()}")
-    with open("output3.csv", "a") as output:
+    print(f"Start: {datetime.now()}")
+
+    with open("output3.csv", "w") as output:
         start_time = time()
         
         requestIDs = []            
@@ -39,7 +41,7 @@ def main():
                         
         output.write(f"{all_size};{end_time-start_time}\n")      
     
-    print(f"End: {time()}")
+    print(f"End: {datetime.now()}")
 
 if __name__ == "__main__":
     main()

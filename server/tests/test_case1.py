@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from os import path, listdir
 from time import time
+from datetime import datetime
 from test_core import send_request, get_responses, map_responses
 
 
@@ -42,16 +43,16 @@ def processFile(filename, directory, file_type, output_file):
 def main():
     args = parse_args()
 
-    print(f"Start: {time()}")
+    print(f"Start: {datetime.now()}")
     
-    with open("output.csv", "a") as output:
+    with open("output.csv", "w") as output:
         for filename in listdir(args.real_dir):
             processFile(filename, args.real_dir, 1, output)
 
         for filename in listdir(args.fake_dir):
             processFile(filename, args.fake_dir, 0, output)
     
-    print(f"End: {time()}")
+    print(f"End: {datetime.now()}")
 
 if __name__ == "__main__":
     main()

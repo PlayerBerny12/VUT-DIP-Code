@@ -31,10 +31,10 @@ spec:
         resources:
           requests:
             memory: "3G"
-            cpu: "700m"
+            cpu: "500m"
           limits:
-            memory: "3G"
-            cpu: "700m"
+            memory: "4G"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -45,10 +45,10 @@ spec:
         resources:
           requests:
             memory: "3G"
-            cpu: "700m"
+            cpu: "500m"
           limits:
-            memory: "3G"
-            cpu: "700m"
+            memory: "4G"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -59,10 +59,10 @@ spec:
         resources:
           requests:
             memory: "3G"
-            cpu: "700m"
+            cpu: "500m"
           limits:
-            memory: "3G"
-            cpu: "700m"
+            memory: "4G"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -73,10 +73,10 @@ spec:
         resources:
           requests:
             memory: "3G"
-            cpu: "700m"
+            cpu: "500m"
           limits:
-            memory: "3G"
-            cpu: "700m"
+            memory: "4G"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -87,10 +87,10 @@ spec:
         resources:
           requests:
             memory: "3G"
-            cpu: "700m"
+            cpu: "500m"
           limits:
-            memory: "3G"
-            cpu: "700m"
+            memory: "4G"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
@@ -101,10 +101,10 @@ spec:
         resources:
           requests:
             memory: "3G"
-            cpu: "700m"
+            cpu: "500m"
           limits:
-            memory: "3G"
-            cpu: "700m"
+            memory: "4G"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata

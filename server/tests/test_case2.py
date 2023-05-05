@@ -1,7 +1,8 @@
 from argparse import ArgumentParser
 from os import path, listdir
 from time import time
-from .test_core import send_request, get_responses, map_responses
+from datetime import datetime
+from test_core import send_request, get_responses, map_responses
 
 def parse_args():
     parser = ArgumentParser()
@@ -24,9 +25,9 @@ def batch(iterable, batch_size=1):
 def main():
     args = parse_args()
     
-    print(f"Start: {time()}")
-    
-    with open("output2.csv", "a") as output:
+    print(f"Start: {datetime.now()}")    
+
+    with open("output2.csv", "w") as output:
         for filenames in batch(listdir(args.dir), 5):
             start_time = time()
             
@@ -48,7 +49,7 @@ def main():
             for _ in requestIDs:
                 output.write(f"{batch_size};{end_time-start_time}\n")      
     
-    print(f"End: {time()}")
+    print(f"End: {datetime.now()}")
 
 if __name__ == "__main__":
     main()
