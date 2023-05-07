@@ -47,9 +47,9 @@ def fisnish_processing(connection, channel, delivery_tag, id, responses):
     channel_output = create_channel(connection, queue_output)
     channel_output.basic_publish("", queue_output, json.dumps({"RequestID": id, "Responses": responses})) 
     channel_output.close()
-
-    channel.basic_ack(delivery_tag=delivery_tag)
-    channel.close()
+    
+    if channel.is_open:        
+        channel.basic_ack(delivery_tag=delivery_tag)
 
 def request_processing(connection, channel, delivery_tag, body):
     params = body.decode("utf8").replace("\'", "\"")
