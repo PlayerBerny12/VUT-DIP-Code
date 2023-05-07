@@ -7,6 +7,8 @@ import os
 import pika
 
 PROCESSING_UNITS_URLS = [f"http://localhost:{port}/detect" for port in os.environ["ProcessingUnitsPorts"].split(":")]
+CONNECTION_PARAMETERS = pika.ConnectionParameters(os.environ["RabbitMQ"])
+CONNECTION = pika.BlockingConnection(CONNECTION_PARAMETERS)
 
 async def http_get_async(session: Any, url: str, params: Dict[str, str]):
     try:
@@ -32,10 +34,7 @@ async def call_all_processing_units(urls: str, params: Dict[str, str]):
     return responses
 
 def create_channel(queue_name: str):
-    connection_parameters = pika.ConnectionParameters(os.environ["RabbitMQ"])
-    connection = pika.BlockingConnection(connection_parameters)
-
-    channel = connection.channel()
+    channel = CONNECTION.channel()
     channel.queue_declare(queue=queue_name)   
 
     return channel
@@ -48,17 +47,19 @@ def on_message_received(channel: Any, method: Any, properties: Any, body: bytes)
 
     responses = asyncio.run(call_all_processing_units(PROCESSING_UNITS_URLS, params_lowecase))
     print(f"Received responses: {responses}")
-
+    
     queue_output = os.environ["RabbitMQOutputQueue"]    
     channel_output = create_channel(queue_output)
-    channel_output.basic_publish("", queue_output, json.dumps({"RequestID": params["ID"], "Responses": responses}))    
+    channel_output.basic_publish("", queue_output, json.dumps({"RequestID": params["ID"], "Responses": responses})) 
+    
+    channel.basic_ack(delivery_tag=method.delivery_tag)
 
 def main():
     queue = os.environ["RabbitMQQueue"]
     channel = create_channel(queue)
             
     channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(queue=queue, auto_ack=True, on_message_callback=on_message_received)
+    channel.basic_consume(queue=queue, on_message_callback=on_message_received)
 
     print(f"Start consuming: {queue}")
     channel.start_consuming()
