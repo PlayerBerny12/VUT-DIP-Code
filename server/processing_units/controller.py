@@ -5,6 +5,7 @@ import asyncio
 import json
 import os
 import pika
+import threading
 
 PROCESSING_UNITS_URLS = [f"http://localhost:{port}/detect" for port in os.environ["ProcessingUnitsPorts"].split(":")]
 CONNECTION_PARAMETERS = pika.ConnectionParameters(os.environ["RabbitMQ"])
@@ -39,8 +40,8 @@ def create_channel(queue_name: str):
 
     return channel
 
-def on_message_received(channel: Any, method: Any, properties: Any, body: bytes):
-    params = body.decode("utf8").replace("\'", "\"")    
+def request_processing(channel, delivery_tag, body):
+    params = body.decode("utf8").replace("\'", "\"")
     params = json.loads(params)
     params_lowecase = {key.lower():value for key, value in params.items()}
     print(f"Received body: {params_lowecase}")    
@@ -49,10 +50,17 @@ def on_message_received(channel: Any, method: Any, properties: Any, body: bytes)
     print(f"Received responses: {responses}")
     
     queue_output = os.environ["RabbitMQOutputQueue"]    
+    
     channel_output = create_channel(queue_output)
     channel_output.basic_publish("", queue_output, json.dumps({"RequestID": params["ID"], "Responses": responses})) 
-    
-    channel.basic_ack(delivery_tag=method.delivery_tag)
+    channel_output.close()
+
+    channel.basic_ack(delivery_tag=delivery_tag)
+    channel.close()
+
+def on_message_received(channel: Any, method: Any, properties: Any, body: bytes):    
+    t = threading.Thread(target=request_processing, args=(channel, method.delivery_tag, body))
+    t.start()    
 
 def main():
     queue = os.environ["RabbitMQQueue"]
