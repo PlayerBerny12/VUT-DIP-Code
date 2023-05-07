@@ -2,12 +2,17 @@ import requests
 
 from time import sleep
 
-DFDF_ENDPOINT = "http://20.31.66.184"
+DFDF_ENDPOINT = "http://20.31.218.209"
 
 
-def send_request(filename, file_path):
+def send_request(filename, file_path, file_extension):    
+    if file_extension == ".mp4":
+        file_type = "video/mp4"
+    elif file_extension == ".wav":
+        file_type = "audio/wav"
+
     file = {
-        "file": (filename, open(file_path, "rb"), "audio/wav"),
+        "file": (filename, open(file_path, "rb"), file_type),
     }
     
     response = requests.post(f"{DFDF_ENDPOINT}/api/detect/file", files=file)

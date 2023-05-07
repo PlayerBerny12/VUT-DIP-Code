@@ -34,13 +34,13 @@ async def call_all_processing_units(urls: str, params: Dict[str, str]):
         responses = [i for i in responses if i is not None]
     return responses
 
-def create_channel(queue_name: str):
-    channel = CONNECTION.channel()
+def create_channel(connection: Any, queue_name: str):
+    channel = connection.channel()
     channel.queue_declare(queue=queue_name)   
 
     return channel
 
-def request_processing(channel, delivery_tag, body):
+def request_processing(connection, channel, delivery_tag, body):
     params = body.decode("utf8").replace("\'", "\"")
     params = json.loads(params)
     params_lowecase = {key.lower():value for key, value in params.items()}
@@ -51,7 +51,7 @@ def request_processing(channel, delivery_tag, body):
     
     queue_output = os.environ["RabbitMQOutputQueue"]    
     
-    channel_output = create_channel(queue_output)
+    channel_output = create_channel(connection, queue_output)
     channel_output.basic_publish("", queue_output, json.dumps({"RequestID": params["ID"], "Responses": responses})) 
     channel_output.close()
 
@@ -59,12 +59,12 @@ def request_processing(channel, delivery_tag, body):
     channel.close()
 
 def on_message_received(channel: Any, method: Any, properties: Any, body: bytes):    
-    t = threading.Thread(target=request_processing, args=(channel, method.delivery_tag, body))
+    t = threading.Thread(target=request_processing, args=(CONNECTION, channel, method.delivery_tag, body))
     t.start()    
 
 def main():
     queue = os.environ["RabbitMQQueue"]
-    channel = create_channel(queue)
+    channel = create_channel(CONNECTION, queue)
             
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue=queue, on_message_callback=on_message_received)

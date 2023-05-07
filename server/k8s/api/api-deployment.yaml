@@ -15,7 +15,7 @@ spec:
       containers:
         - name: dfdf-api
           image: ghcr.io/playerberny12/vut-dip-code/dfdf-api:main
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP
@@ -24,6 +24,13 @@ spec:
               value: http://+:80
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
+          resources:
+            requests:
+              memory: "1G"
+              cpu: "500m"
+            limits:
+              memory: "1G"
+              cpu: "500m"
           volumeMounts:
           - name: processingdata
             mountPath: /mnt/processingdata

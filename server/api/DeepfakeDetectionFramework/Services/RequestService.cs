@@ -91,7 +91,7 @@ public class RequestService : IRequestService
         List<ResponseVM> responseVMs = new();
         detectionMethods.ForEach(detectionMethod =>
         {
-            if(detectionMethod.Type == request.Type)
+            if (detectionMethod.Type == request.Type)
             {
                 responseVMs.Add(new()
                 {
@@ -101,9 +101,29 @@ public class RequestService : IRequestService
             }
         });
 
+        int responsesCountBelow = responses.Count(x => x.Value < 0.5);
+        int responsesCountAbove = responses.Count(x => x.Value > 0.5);
         double? responsesMinValue = responses.Min(x => x.Value);
+        double? responsesMaxValue = responses.Max(x => x.Value);
+        double? responsesAvgValue = responses.Average(x => x.Value);
         double? responsesSumValue = responses.Sum(x => x.Value);
-        double? responsesGlobalValue = (responsesSumValue + (responsesMinValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
+        double? responsesGlobalValue = null;
+
+        if (responsesCountBelow == responsesCountAbove)
+        {
+            responsesGlobalValue = responsesAvgValue;
+        }
+        else
+        {
+            if (responsesCountBelow > responsesCountAbove)
+            {
+                responsesGlobalValue = (responsesSumValue + (responsesMinValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
+            }
+            else
+            {
+                responsesGlobalValue = (responsesSumValue + (responsesMaxValue * (responses.Count - 1))) / ((responses.Count * 2) - 1);
+            }
+        }
 
         ResponsesVM responsesVM = new()
         {

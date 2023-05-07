@@ -32,12 +32,13 @@ def processFile(filename, directory, file_type, output_file):
 
     if path.isfile(file_path):
         start_time = time()
-        requestID = send_request(filename, file_path)
+        requestID = send_request(filename, file_path, path.splitext(file_path)[1])
         responses = get_responses(requestID)
         end_time = time()
 
         output_file.write(
             f"{file_type};{map_responses(responses)};{path.getsize(file_path)};{end_time-start_time}\n")
+        output_file.flush()
 
 
 def main():

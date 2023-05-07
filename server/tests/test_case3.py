@@ -25,21 +25,32 @@ def main():
         start_time = time()
         
         requestIDs = []            
-        all_size = 0            
+        audio_size = 0
+        video_size = 0
+        audio_count = 0
+        video_count = 0
         
         for filename in listdir(args.dir):
             file_path = path.join(args.dir, filename)
                            
             if path.isfile(file_path):
-                batch_size += path.getsize(file_path)
-                requestIDs.append(send_request(filename, file_path))            
+                file_extension = path.splitext(file_path)[1]
+
+                if file_extension == ".mp4":
+                    video_count += 1
+                    video_size += path.getsize(file_path)
+                elif file_extension == ".wav":
+                    audio_count += 1
+                    audio_size += path.getsize(file_path)
+                    
+                requestIDs.append(send_request(filename, file_path, path.splitext(file_path)[1]))            
         
         for requestID in requestIDs:
             get_responses(requestID)
                 
         end_time = time()
                         
-        output.write(f"{all_size};{end_time-start_time}\n")      
+        output.write(f"{audio_size};{audio_count};{video_size};{video_count};{end_time-start_time}\n")    
     
     print(f"End: {datetime.now()}")
 

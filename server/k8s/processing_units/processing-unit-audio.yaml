@@ -15,7 +15,14 @@ spec:
       containers:
       - name: dfdf-audio-controller
         image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "250Mi"
+            cpu: "100m"
         env:
         - name: RabbitMQ
           value: "rabbitmq-service"
@@ -27,84 +34,84 @@ spec:
           value: "50500:50501:50502:50503:50504:50505"
       - name: dfdf-detection-audio-1
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-1:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "3G"
             cpu: "500m"
           limits:
-            memory: "4G"
-            cpu: "2000m"
+            memory: "3G"
+            cpu: "1000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
           readOnly: true
       - name: dfdf-detection-audio-2
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-2:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "3G"
             cpu: "500m"
           limits:
-            memory: "4G"
-            cpu: "2000m"
+            memory: "3G"
+            cpu: "1000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
           readOnly: true
       - name: dfdf-detection-audio-3
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-3:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "3G"
             cpu: "500m"
           limits:
-            memory: "4G"
-            cpu: "2000m"
+            memory: "3G"
+            cpu: "1000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
           readOnly: true
       - name: dfdf-detection-audio-4
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-4:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "3G"
             cpu: "500m"
           limits:
-            memory: "4G"
-            cpu: "2000m"
+            memory: "3G"
+            cpu: "1000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
           readOnly: true
       - name: dfdf-detection-audio-5
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-5:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "3G"
             cpu: "500m"
           limits:
-            memory: "4G"
-            cpu: "2000m"
+            memory: "3G"
+            cpu: "1000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata
           readOnly: true
       - name: dfdf-detection-audio-6
         image: ghcr.io/playerberny12/audiodeepfakedetection/dfdf-detection-audio-6:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "3G"
             cpu: "500m"
           limits:
-            memory: "4G"
-            cpu: "2000m"
+            memory: "3G"
+            cpu: "1000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata

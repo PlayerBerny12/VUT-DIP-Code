@@ -15,7 +15,14 @@ spec:
       containers:
       - name: dfdf-video-controller
         image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "250Mi"
+            cpu: "100m"
+          limits:
+            memory: "250Mi"
+            cpu: "100m"
         env:
         - name: RabbitMQ
           value: "rabbitmq-service"
@@ -27,14 +34,14 @@ spec:
           value: "50500"
       - name: dfdf-detection-video-1
         image: ghcr.io/playerberny12/fakevideoforensics/dfdf-detection-video-1:master
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         resources:
           requests:
             memory: "2G"
-            cpu: "1000m"
+            cpu: "750m"
           limits:
             memory: "3G"
-            cpu: "4000m"
+            cpu: "2000m"
         volumeMounts:
         - name: processingdata
           mountPath: /mnt/processingdata

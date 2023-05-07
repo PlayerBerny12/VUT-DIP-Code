@@ -15,7 +15,14 @@
 #       containers:
 #       - name: dfdf-image-controller
 #         image: ghcr.io/playerberny12/vut-dip-code/dfdf-controller:main
-#         imagePullPolicy: IfNotPresent
+#         imagePullPolicy: Always
+#         resources:
+#           requests:
+#             memory: "250Mi"
+#             cpu: "100m"
+#           limits:
+#             memory: "250Mi"
+#             cpu: "100m"
 #         env:
 #         - name: RabbitMQ
 #           value: "rabbitmq-service"
@@ -27,14 +34,14 @@
 #           value: "50500"
 #       - name: dfdf-detection-image-1
 #         image: ghcr.io/playerberny12/XXX/dfdf-detection-image-1:master
-#         imagePullPolicy: IfNotPresent
+#         imagePullPolicy: Always
 #         resources:
 #           requests:
 #             memory: "2G"
 #             cpu: "500m"
 #           limits:
 #             memory: "3G"
-#             cpu: "2000m"
+#             cpu: "1000m"
 #         volumeMounts:
 #         - name: processingdata
 #           mountPath: /mnt/processingdata
