@@ -2,6 +2,7 @@ from typing import Dict, Any
 
 import aiohttp
 import asyncio
+import functools
 import json
 import os
 import pika
@@ -11,7 +12,7 @@ PROCESSING_UNITS_URLS = [f"http://localhost:{port}/detect" for port in os.enviro
 CONNECTION_PARAMETERS = pika.ConnectionParameters(os.environ["RabbitMQ"])
 CONNECTION = pika.BlockingConnection(CONNECTION_PARAMETERS)
 
-async def http_get_async(session: Any, url: str, params: Dict[str, str]):
+async def http_get_async(session, url, params):
     try:
         async with session.get(url, params=params) as resp:
             if resp.status == 200:
@@ -22,7 +23,7 @@ async def http_get_async(session: Any, url: str, params: Dict[str, str]):
     except:
         return None
 
-async def call_all_processing_units(urls: str, params: Dict[str, str]):
+async def call_all_processing_units(urls, params):
     timeout = aiohttp.ClientTimeout(total=900)
     
     async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -40,6 +41,16 @@ def create_channel(connection: Any, queue_name: str):
 
     return channel
 
+def fisnish_processing(connection, channel, delivery_tag, id, responses):
+    queue_output = os.environ["RabbitMQOutputQueue"]    
+
+    channel_output = create_channel(connection, queue_output)
+    channel_output.basic_publish("", queue_output, json.dumps({"RequestID": id, "Responses": responses})) 
+    channel_output.close()
+
+    channel.basic_ack(delivery_tag=delivery_tag)
+    channel.close()
+
 def request_processing(connection, channel, delivery_tag, body):
     params = body.decode("utf8").replace("\'", "\"")
     params = json.loads(params)
@@ -49,16 +60,10 @@ def request_processing(connection, channel, delivery_tag, body):
     responses = asyncio.run(call_all_processing_units(PROCESSING_UNITS_URLS, params_lowecase))
     print(f"Received responses: {responses}")
     
-    queue_output = os.environ["RabbitMQOutputQueue"]    
+    finish_cb = functools.partial(fisnish_processing, connection, channel, delivery_tag, params["ID"], responses)
+    connection.add_callback_threadsafe(finish_cb)
     
-    channel_output = create_channel(connection, queue_output)
-    channel_output.basic_publish("", queue_output, json.dumps({"RequestID": params["ID"], "Responses": responses})) 
-    channel_output.close()
-
-    channel.basic_ack(delivery_tag=delivery_tag)
-    channel.close()
-
-def on_message_received(channel: Any, method: Any, properties: Any, body: bytes):    
+def on_message_received(channel, method, properties, body):    
     t = threading.Thread(target=request_processing, args=(CONNECTION, channel, method.delivery_tag, body))
     t.start()    
 
