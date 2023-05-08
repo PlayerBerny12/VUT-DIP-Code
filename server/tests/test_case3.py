@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from os import path, listdir
 from time import time
 from datetime import datetime
+from random import shuffle
 from test_core import send_request, get_responses, map_responses
 
 def parse_args():
@@ -18,6 +19,8 @@ def parse_args():
 
 def main():
     args = parse_args()
+    filenames = listdir(args.dir)
+    shuffle(filenames)
     
     print(f"Start: {datetime.now()}")
 
@@ -25,12 +28,13 @@ def main():
         start_time = time()
         
         requestIDs = []            
+        responses = []
         audio_size = 0
         video_size = 0
         audio_count = 0
         video_count = 0
-        
-        for filename in listdir(args.dir):
+
+        for filename in filenames:
             file_path = path.join(args.dir, filename)
                            
             if path.isfile(file_path):
@@ -46,12 +50,13 @@ def main():
                 requestIDs.append(send_request(filename, file_path, path.splitext(file_path)[1]))            
         
         for requestID in requestIDs:
-            get_responses(requestID)
+            responses.append(get_responses(requestID))
                 
         end_time = time()
                         
-        output.write(f"{audio_size};{audio_count};{video_size};{video_count};{end_time-start_time}\n")    
+        output.write(f"{audio_size};{audio_count};{video_size};{video_count};{end_time-start_time}\n")
     
+    print(responses)
     print(f"End: {datetime.now()}")
 
 if __name__ == "__main__":

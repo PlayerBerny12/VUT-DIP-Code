@@ -46,7 +46,7 @@ def main():
 
     print(f"Start: {datetime.now()}")
     
-    with open("output.csv", "w") as output:
+    with open("output1.csv", "w") as output:
         for filename in listdir(args.real_dir):
             processFile(filename, args.real_dir, 1, output)
 

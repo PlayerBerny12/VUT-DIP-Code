@@ -37,10 +37,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "500m"
           limits:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "1000m"
         volumeMounts:
         - name: processingdata
@@ -51,10 +51,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "500m"
           limits:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "1000m"
         volumeMounts:
         - name: processingdata
@@ -65,10 +65,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "500m"
           limits:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "1000m"
         volumeMounts:
         - name: processingdata
@@ -79,10 +79,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "500m"
           limits:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "1000m"
         volumeMounts:
         - name: processingdata
@@ -93,10 +93,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "500m"
           limits:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "1000m"
         volumeMounts:
         - name: processingdata
@@ -107,10 +107,10 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "500m"
           limits:
-            memory: "3G"
+            memory: "3.5G"
             cpu: "1000m"
         volumeMounts:
         - name: processingdata

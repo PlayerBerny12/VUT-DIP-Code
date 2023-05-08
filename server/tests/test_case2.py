@@ -34,7 +34,8 @@ def main():
         for filenames_batch in batch(filenames, 5):
             start_time = time()
             
-            requestIDs = []            
+            requestIDs = []     
+            responses = []       
             audio_batch_size = 0
             video_batch_size = 0
             audio_batch_count = 0
@@ -56,13 +57,14 @@ def main():
                     requestIDs.append(send_request(filename, file_path, file_extension))            
         
             for requestID in requestIDs:
-                get_responses(requestID)
+                responses.append(get_responses(requestID))
                 
             end_time = time()
             
             output.write(f"{audio_batch_size};{audio_batch_count};{video_batch_size};{video_batch_count};{end_time-start_time}\n")
             output.flush()  
     
+    print(responses)
     print(f"End: {datetime.now()}")
 
 if __name__ == "__main__":
