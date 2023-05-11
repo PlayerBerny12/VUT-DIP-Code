@@ -3,20 +3,45 @@ LJ + WaveFake
 Start: 2023-05-05 23:31:01.254249
 End: 2023-05-06 09:58:24.944845
 
+ShallowCNN_lfcc_I AUC = 0.2576
+ShallowCNN_lfcc_O AUC = 0.999968
+ShallowCNN_mfcc_I AUC = 0.231288
+ShallowCNN_mfcc_O AUC = 0.996448
+TSSD_Wave_I AUC = 0.61152
+TSSD_Wave_O AUC = 0.999904
+Overall score1 AUC = 1.0
+Overall score2 AUC = 1.0
+Overall score3 AUC = 1.0
+Overall score4 AUC = 1.0
+
 ASV2021
 ---
 Start: 2023-05-06 10:11:08.544545
 End: 2023-05-06 17:06:21.112454
+
+ShallowCNN_lfcc_I AUC = 0.410944
+ShallowCNN_lfcc_O AUC = 0.305408
+ShallowCNN_mfcc_I AUC = 0.5176719999999999
+ShallowCNN_mfcc_O AUC = 0.349888
+TSSD_Wave_I AUC = 0.309056
+TSSD_Wave_O AUC = 0.50736
+Overall score1 AUC = 0.35364799999999996
+Overall score2 AUC = 0.354896
+Overall score3 AUC = 0.376416
+Overall score4 AUC = 0.35449600000000003
 
 CDF
 ---
 Start: 2023-05-06 19:35:23.804239
 End: 2023-05-07 16:59:29.250947
 
+fakeVideoForensics AUC = 0.5738056680161944
+
 FF
 ---
 Start: 2023-05-08 10:06:51.666458
 
+fakeVideoForensics AUC = 0.7583647906657516
 
 Burst
 ---
