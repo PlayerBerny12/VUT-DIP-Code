@@ -24,7 +24,8 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestService.getResults()
-      .subscribe(data => this.responsesSource.next(data));
+      .subscribe(data => data != null ? this.responsesSource.next(data)
+        : this.responsesSource.next({ value: null, responses: [] }));
   }
 
   openOverallScoreDialog() {

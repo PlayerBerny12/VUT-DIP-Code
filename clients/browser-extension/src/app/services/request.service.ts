@@ -19,7 +19,7 @@ export class RequestService {
     let formData: FormData = new FormData();
     formData.append('file', uploadFile);
 
-    return this.http.post<number>('http://20.103.40.209/api/detect/file', formData)
+    return this.http.post<number>('http://20.31.219.16/api/detect/file', formData)
       .pipe(
         tap(result => this.requestID = result),
         catchError(error => this.handleError(error))
@@ -30,7 +30,7 @@ export class RequestService {
     let params = new HttpParams()
       .append("link", encodeURIComponent(link));
 
-    return this.http.post<number>('http://20.103.40.209/api/detect/link', null, { params: params })
+    return this.http.post<number>('http://20.31.219.16/api/detect/link', null, { params: params })
       .pipe(
         tap(result => this.requestID = result),
         catchError(error => this.handleError(error))
@@ -41,11 +41,14 @@ export class RequestService {
     let params = new HttpParams()
       .append("requestID", this.requestID!.toString());
 
-    return this.http.get<ResponsesVM>('http://20.103.40.209/api/request/results', { params: params })
+    let count = 480;
+
+    return this.http.get<ResponsesVM>('http://20.31.219.16/api/request/results', { params: params })
       .pipe(
-        repeat({ delay: 2000, count: 480 }),
-        filter(data => data != null),
-        take(1)
+        repeat({ delay: 2000 }),
+        tap(() => count -= 1),
+        filter(data => data != null || (data == null && count == 0)),
+        take(1),
       );
   }
 

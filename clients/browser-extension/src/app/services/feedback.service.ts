@@ -16,7 +16,7 @@ export class FeedbackService {
   ) { }
 
   sendFeedback(feedback: string) {
-    return this.http.post('http://20.103.40.209/api/feedback', { "request": this.requestService.requestID, "text": feedback })
+    return this.http.post('http://20.31.219.16/api/feedback', { "request": this.requestService.requestID, "text": feedback })
       .pipe(
         tap({
           next: () => this.snackBar.open("Feedback successfully sent.", undefined, { duration: 3500 }),

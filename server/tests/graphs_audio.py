@@ -21,6 +21,16 @@ df["score2"] = df.apply(calculate_global_score2, axis=1)
 df["score3"] = df.apply(calculate_global_score3, axis=1)
 df["score4"] = df.apply(calculate_global_score4, axis=1)
 
+print(f"Size avg: {df[8].mean()}")
+print(f"Size median: {df[8].median()}")
+print(f"Size min: {df[8].min()}")
+print(f"Size max: {df[8].max()}")
+print(f"Time avg: {df[9].mean()}")
+print(f"Time median: {df[9].median()}")
+print(f"Time min: {df[9].min()}")
+print(f"Time max: {df[9].max()}")
+print()
+
 # Plot ROC + AUC for all detection methods
 plt.figure(figsize=(7,7))
 

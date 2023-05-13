@@ -3,12 +3,21 @@ LJ + WaveFake
 Start: 2023-05-05 23:31:01.254249
 End: 2023-05-06 09:58:24.944845
 
-ShallowCNN_lfcc_I AUC = 0.2576
-ShallowCNN_lfcc_O AUC = 0.999968
-ShallowCNN_mfcc_I AUC = 0.231288
-ShallowCNN_mfcc_O AUC = 0.996448
-TSSD_Wave_I AUC = 0.61152
-TSSD_Wave_O AUC = 0.999904
+Size avg: 288252.2
+Size median: 299465.0
+Size min: 67942
+Size max: 444972
+Time avg: 72.9033148341179
+Time median: 77.88441836833954
+Time min: 16.61610984802246
+Time max: 85.35489749908447
+
+ShallowCNN_lfcc_I AUC = 0.31304
+ShallowCNN_lfcc_O AUC = 0.999808
+ShallowCNN_mfcc_I AUC = 0.289784
+ShallowCNN_mfcc_O AUC = 0.994016
+TSSD_Wave_I AUC = 0.6414960000000001
+TSSD_Wave_O AUC = 0.99976
 Overall score1 AUC = 1.0
 Overall score2 AUC = 1.0
 Overall score3 AUC = 1.0
@@ -18,6 +27,15 @@ ASV2021
 ---
 Start: 2023-05-06 10:11:08.544545
 End: 2023-05-06 17:06:21.112454
+
+Size avg: 87481.772
+Size median: 78478.0
+Size min: 19118
+Size max: 265038
+Time avg: 49.45703687858582
+Time median: 76.11080431938171
+Time min: 16.318709135055542
+Time max: 96.1472704410553
 
 ShallowCNN_lfcc_I AUC = 0.410944
 ShallowCNN_lfcc_O AUC = 0.305408
@@ -35,11 +53,29 @@ CDF
 Start: 2023-05-06 19:35:23.804239
 End: 2023-05-07 16:59:29.250947
 
+Size avg: 1893498.9275653923
+Size median: 1674293.0
+Size min: 467428
+Size max: 5991748
+Time avg: 153.78439954109115
+Time median: 145.72664213180542
+Time min: 34.579256534576416
+Time max: 496.80051279067993
+
 fakeVideoForensics AUC = 0.5738056680161944
 
 FF
 ---
 Start: 2023-05-08 10:06:51.666458
+
+Size avg: 2030636.8819875775
+Size median: 1559109.0
+Size min: 449377
+Size max: 10693909
+Time avg: 389.549296308008
+Time median: 305.31154441833496
+Time min: 126.4225447177887
+Time max: 881.673600435257
 
 fakeVideoForensics AUC = 0.7583647906657516
 

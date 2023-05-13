@@ -2,7 +2,7 @@ import requests
 
 from time import sleep
 
-DFDF_ENDPOINT = "http://20.238.231.102"
+DFDF_ENDPOINT = "http://20.31.219.16"
 
 
 def send_request(filename, file_path, file_extension):    
