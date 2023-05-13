@@ -2,6 +2,7 @@
 
 public enum RequestStatus
 {
+    New,
     Processing,
     Done
 }

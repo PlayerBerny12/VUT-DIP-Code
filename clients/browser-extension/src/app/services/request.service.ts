@@ -43,7 +43,7 @@ export class RequestService {
 
     return this.http.get<ResponsesVM>('http://20.103.40.209/api/request/results', { params: params })
       .pipe(
-        repeat({ delay: 2500 }),
+        repeat({ delay: 2000, count: 480 }),
         filter(data => data != null),
         take(1)
       );

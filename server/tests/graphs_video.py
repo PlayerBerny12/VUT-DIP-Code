@@ -9,7 +9,7 @@ from graphs_core import plot, calcualte_roc_auc
 df = pd.read_csv(sys.argv[1], delimiter=";", header=None)
 
 # Plot ROC + AUC for all detection methods
-plt.figure(figsize=(8,5))
+plt.figure(figsize=(7,7))
 
 # ShallowCNN_lfcc_I
 calcualte_roc_auc(df[0], df[1], "fakeVideoForensics")

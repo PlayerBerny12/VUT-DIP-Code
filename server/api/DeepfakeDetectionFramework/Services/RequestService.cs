@@ -39,7 +39,7 @@ public class RequestService : IRequestService
             {
                 Filename = filename,
                 Checksum = checksum,
-                Status = RequestStatus.Processing,
+                Status = RequestStatus.New,
                 Type = processingType
             };
 
@@ -49,27 +49,35 @@ public class RequestService : IRequestService
 
         return _mapperConfig.ToViewModel(request!);
     }
-    public void SendRequestToProcessingUint(RequestVM request)
+    public async Task SendRequestToProcessingUint(RequestVM requestVM)
     {
-        byte[] message = JsonSerializer.SerializeToUtf8Bytes(request);
+        byte[] message = JsonSerializer.SerializeToUtf8Bytes(requestVM);
         using IConnection connection = _messageService.GetConnectionFactory()
             .CreateConnection();
 
-        if (request.Type == ProcessingType.Video)
+        if (requestVM.Type == ProcessingType.Video)
         {
             using IModel channel = _messageService.CreateChannel(connection, QUEUE_VIDEO);
             channel.BasicPublish("", QUEUE_VIDEO, null, message);
         }
-        else if (request.Type == ProcessingType.Image)
+        else if (requestVM.Type == ProcessingType.Image)
         {
             using IModel channel = _messageService.CreateChannel(connection, QUEUE_IMAGE);
             channel.BasicPublish("", QUEUE_IMAGE, null, message);
         }
-        else if (request.Type == ProcessingType.Audio)
+        else if (requestVM.Type == ProcessingType.Audio)
         {
             using IModel channel = _messageService.CreateChannel(connection, QUEUE_AUDIO);
             channel.BasicPublish("", QUEUE_AUDIO, null, message);
         }
+        
+         Request request = await _databaseContext.Requests.Where(x => x.ID == requestVM.ID)
+            .FirstAsync();
+        request.Status = RequestStatus.Processing;
+        
+        _databaseContext.Update(request);
+        await _databaseContext.SaveChangesAsync();
+
     }
 
     public async Task<ResponsesVM?> GetRequestResonses(long requestID)

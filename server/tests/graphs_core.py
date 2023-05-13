@@ -10,7 +10,7 @@ def calcualte_roc_auc(df_true, df_predict, name):
 def plot():
     plt.ylabel("True Positive Rate")
     plt.xlabel("False Positive Rate")
-    plt.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
+    plt.legend(bbox_to_anchor=(0.5, -0.11), loc='upper center', ncol=3)
     plt.tight_layout()
     plt.show()
 

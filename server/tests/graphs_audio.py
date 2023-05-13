@@ -22,7 +22,7 @@ df["score3"] = df.apply(calculate_global_score3, axis=1)
 df["score4"] = df.apply(calculate_global_score4, axis=1)
 
 # Plot ROC + AUC for all detection methods
-plt.figure(figsize=(8,5))
+plt.figure(figsize=(7,7))
 
 # ShallowCNN_lfcc_I
 calcualte_roc_auc(df[0], df[2], "ShallowCNN_lfcc_I")
@@ -47,7 +47,7 @@ plot()
 
 # Clear and plot overall score
 plt.close()
-plt.figure(figsize=(8,5))
+plt.figure(figsize=(7,7))
 
 # Overall score1
 calcualte_roc_auc(df[0], df["score1"], "Overall score1")

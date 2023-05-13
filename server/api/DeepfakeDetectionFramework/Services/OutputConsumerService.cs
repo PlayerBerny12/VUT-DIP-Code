@@ -60,6 +60,8 @@ public class OutputConsumerService : BackgroundService
 
                 foreach (ResponseBackendVM responseVM in responsesVM.Responses)
                 {
+                    responseVM.RequestID = responsesVM.RequestID;
+                    
                     Response response = _mapperConfig.ToModel(responseVM);
                     await databaseContext.AddAsync(response);
                 }
