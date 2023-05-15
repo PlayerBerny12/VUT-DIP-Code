@@ -11,14 +11,14 @@ def parse_args():
     parser.add_argument(
         "--real_dir",
         "--real",
-        help="Directory containing real data.",
+        help="Directory containing real test data.",
         type=str,
         required=True
     )
     parser.add_argument(
         "--fake_dir",
         "--fake",
-        help="Directory containing fake data.",
+        help="Directory containing fake test data.",
         type=str,
         required=True
     )

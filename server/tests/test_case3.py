@@ -10,7 +10,7 @@ def parse_args():
 
     parser.add_argument(
         "--dir",        
-        help="Directory containing real data.",
+        help="Directory containing test data.",
         type=str,        
     )    
       
