@@ -1,3 +1,8 @@
+"""
+DFDF (DeepfakeDetectionFramework)
+Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
+"""
+
 from typing import Dict, Any
 
 import aiohttp

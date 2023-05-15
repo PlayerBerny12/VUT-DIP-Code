@@ -1,3 +1,8 @@
+"""
+DFDF (DeepfakeDetectionFramework)
+Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
+"""
+
 import matplotlib.pyplot as plt
 from sklearn import metrics
 

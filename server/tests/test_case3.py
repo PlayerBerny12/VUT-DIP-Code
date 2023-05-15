@@ -1,3 +1,8 @@
+"""
+DFDF (DeepfakeDetectionFramework)
+Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
+"""
+
 from argparse import ArgumentParser
 from os import path, listdir
 from time import time

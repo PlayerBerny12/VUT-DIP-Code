@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# DFDF (DeepfakeDetectionFramework)
+# Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
+
 # Delete DFDF
 kubectl delete -R -f .
 

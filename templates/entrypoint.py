@@ -1,5 +1,6 @@
 """
-DeepfakeDetectionFramework
+DFDF (DeepfakeDetectionFramework)
+Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
 --------------------------
 
 if any required method is written in python

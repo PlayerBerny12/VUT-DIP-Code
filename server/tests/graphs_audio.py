@@ -1,3 +1,7 @@
+"""
+DFDF (DeepfakeDetectionFramework)
+Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
+"""
 import sys
 import pandas as pd
 import matplotlib.pyplot as plt

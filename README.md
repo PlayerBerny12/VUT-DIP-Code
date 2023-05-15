@@ -66,7 +66,7 @@ You can also use `delete.sh` to compleatly remove framework from cluster.
 
 ## Tests
 
-All tests are saved in `server/tests`. Following list contains all commands how to run tests, in `test_core.py` you only have to setup `DFDF_ENDPOINT`.
+It is required to install packages, `requirements.txt` file is prepared for this purpose. All tests are saved in `server/tests`. Following list contains all commands how to run tests, in `test_core.py` you only have to setup `DFDF_ENDPOINT`.
 
 ```
 python test_case1.py --real_dir /path/to/real/dir --fake_dir /path/to/fake/dir

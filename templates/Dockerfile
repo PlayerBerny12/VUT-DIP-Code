@@ -1,3 +1,6 @@
+# DFDF (DeepfakeDetectionFramework)
+# Author: Jan Bernard (xberna18@stud.fit.vutbr.cz)
+
 FROM python:alpine
 
 WORKDIR /app
