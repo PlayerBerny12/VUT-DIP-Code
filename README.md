@@ -11,8 +11,8 @@ Master thesis text: [VUT-DIP-Code Github repository](https://github.com/PlayerBe
 
 The project hierarchy is as follows:
 
-1. `clients` - Folder for implementations of client applications 
-2. `server` - Folder for framework components and deployment files
+1. `clients` - Implementations of client applications 
+2. `server` - Framework components and deployment files
    -  `api` - API Endpoint implementation
    -  `k8s` - Kuberentes deployment manifests files
    -  `processing_unit` - Request Processing Controller implementation
@@ -80,3 +80,7 @@ For the first test case you can use another script to generate graphs.
 python graphs_audio.py output_audio.csv
 python graphs_video.py output_video.csv
 ```
+
+## Integrated detection methods
+-   [AudioDeepFakeDetection](https://github.com/PlayerBerny12/AudioDeepFakeDetection)
+-   [fakeVideoForensics](https://github.com/PlayerBerny12/fakeVideoForensics)
