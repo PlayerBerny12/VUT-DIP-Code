@@ -19,6 +19,7 @@ print(f"Time max: {df[4].max()}")
 print()
 
 # Plot ROC + AUC for all detection methods
+plt.rcParams.update({'font.size': 12})
 plt.figure(figsize=(7,7))
 
 # ShallowCNN_lfcc_I
