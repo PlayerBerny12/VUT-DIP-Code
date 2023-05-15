@@ -41,7 +41,7 @@ export class RequestService {
     let params = new HttpParams()
       .append("requestID", this.requestID!.toString());
 
-    let count = 480;
+    let count = 600;
 
     return this.http.get<ResponsesVM>('http://20.31.219.16/api/request/results', { params: params })
       .pipe(
